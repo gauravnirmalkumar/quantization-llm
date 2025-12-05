@@ -3,103 +3,103 @@
   "task": "Completed",
   "progress": 100,
   "logs": [
-    "[12:44:11] All benchmarks completed with multiple test questions.",
-    "[12:44:10] \u2713 Meta-Llama-3.1-8B-Instruct-Q3_K_M: Speed=34.1 T/s, PPL=5.7, Latency=28ms, Mem=3758MB",
-    "[12:43:49] A:  This is an example of a deductive argument. We can conclude that the premises are true and the conc...",
-    "[12:43:49] Q[Reasoning]: If all roses are flowers and some flowers fade quickly, can ...",
-    "[12:43:46] A:  `n` (input number). \nThe function should return the factorial of `n`. \nThe factorial of `n` is the ...",
-    "[12:43:46] Q[Coding]: Write a Python function to calculate the factorial of a numb...",
-    "[12:43:42] A:  A) 45 B) 60 C) 90 D) 120\n## Step 1: Calculate the average speed by dividing the total distance by t...",
-    "[12:43:42] Q[Math - Word Problem]: If a train travels 120 km in 2 hours, what is its average sp...",
-    "[12:43:40] A:  You must use the distributive property for this one.\n\n## Step 1: Apply the distributive property\nTo...",
-    "[12:43:40] Q[Math - Basic]: What is 15 * 23? Show your work step by step....",
-    "[12:43:37] A:  quantum computing is a new kind of computer that uses the strange properties of the quantum world t...",
-    "[12:43:37] Q[Explanation]: Explain quantum computing in simple terms:...",
-    "[12:43:33] Model loaded in 2.34s, using 3758MB",
-    "[12:43:30] Processing Meta-Llama-3.1-8B-Instruct-Q3_K_M...",
-    "[12:43:29] \u2713 Meta-Llama-3.1-8B-Instruct-Q4_K_M: Speed=37.0 T/s, PPL=4.7, Latency=28ms, Mem=4473MB",
-    "[12:43:09] A:  [duplicate]\nThis is a classic example of a syllogism.\nPremise 1: All roses are flowers.\nPremise 2: ...",
-    "[12:43:09] Q[Reasoning]: If all roses are flowers and some flowers fade quickly, can ...",
-    "[12:43:07] A:  `def factorial(n):` that raises an exception when `n` is less than 0. Write a test script to test t...",
-    "[12:43:07] Q[Coding]: Write a Python function to calculate the factorial of a numb...",
-    "[12:43:03] A:  (1 km/h = 5/18 m/s)\n## Step 1: First, let's recall the formula for average speed, which is total di...",
-    "[12:43:03] Q[Math - Word Problem]: If a train travels 120 km in 2 hours, what is its average sp...",
-    "[12:43:01] A:  I want to see the work for a 15 x 23 multiplication problem. Here are the steps:\nStep 1: Write the ...",
-    "[12:43:01] Q[Math - Basic]: What is 15 * 23? Show your work step by step....",
-    "[12:42:59] A:  An introduction to the basics of quantum computing\nQuantum computing is a relatively new and rapidl...",
-    "[12:42:59] Q[Explanation]: Explain quantum computing in simple terms:...",
-    "[12:42:55] Model loaded in 2.72s, using 4473MB",
-    "[12:42:52] Processing Meta-Llama-3.1-8B-Instruct-Q4_K_M...",
-    "[12:42:51] \u2713 Meta-Llama-3.1-8B-Instruct-Q6_K: Speed=23.8 T/s, PPL=4.1, Latency=42ms, Mem=6286MB",
-    "[12:42:29] A:  Explain your answer.\n## Step 1: Understand the given statements\nThe problem states that all roses a...",
-    "[12:42:29] Q[Reasoning]: If all roses are flowers and some flowers fade quickly, can ...",
-    "[12:42:25] A:  `calculate_factorial(n)`. This function should take an integer `n` as input and return the factoria...",
-    "[12:42:25] Q[Coding]: Write a Python function to calculate the factorial of a numb...",
-    "[12:42:20] A:  A) 20 B) 40 C) 60 D) 80\n## Step 1: To find the average speed of the train, we need to divide the to...",
-    "[12:42:20] Q[Math - Word Problem]: If a train travels 120 km in 2 hours, what is its average sp...",
-    "[12:42:16] A:  I can help you with that. The first step is to multiply the numbers together. Here's how you can do...",
-    "[12:42:16] Q[Math - Basic]: What is 15 * 23? Show your work step by step....",
-    "[12:42:12] A:  Qubits, Superposition, Entanglement, and more\nQuantum computing is a new and exciting field that ha...",
-    "[12:42:12] Q[Explanation]: Explain quantum computing in simple terms:...",
-    "[12:42:06] Model loaded in 3.85s, using 6286MB",
-    "[12:42:02] Processing Meta-Llama-3.1-8B-Instruct-Q6_K...",
-    "[12:42:01] \u2713 Meta-Llama-3.1-8B-Instruct-Q8_0: Speed=27.7 T/s, PPL=5.6, Latency=36ms, Mem=7667MB",
-    "[12:41:39] A:  Explain your answer.\n## Step 1: Understand the given statements\nThe first statement is that all ros...",
-    "[12:41:39] Q[Reasoning]: If all roses are flowers and some flowers fade quickly, can ...",
-    "[12:41:35] A:  `calculate_factorial(n)`. This function should take an integer `n` as input and return the factoria...",
-    "[12:41:35] Q[Coding]: Write a Python function to calculate the factorial of a numb...",
-    "[12:41:31] A:  A) 20 km/h B) 40 km/h C) 60 km/h D) 80 km/h E) 120 km/h\n\n## Step 1: Identify the formula for averag...",
-    "[12:41:31] Q[Math - Word Problem]: If a train travels 120 km in 2 hours, what is its average sp...",
-    "[12:41:28] A:  \nStep 1:  Multiply 15 and 20\n15 * 20 = 300\nStep 2: Multiply 15 and 3\n15 * 3 = 45\nStep 3: Add the re...",
-    "[12:41:28] Q[Math - Basic]: What is 15 * 23? Show your work step by step....",
-    "[12:41:25] A:  It's like a superpower for computers that lets them solve problems that would take them years to so..."
+    "[13:34:07] All benchmarks completed with multiple test questions.",
+    "[13:34:06] \u2713 Meta-Llama-3.1-8B-Instruct-Q3_K_M: Speed=33.8 T/s, PPL=5.7, Latency=29ms, Mem=3765MB",
+    "[13:33:46] A:  This is an example of a deductive argument. We can conclude that the premises are true and the conc...",
+    "[13:33:46] STREAM: ... can conclude that the premises are true and the conclusion follows logically from the premises. The",
+    "[13:33:46] STREAM: ... deductive argument. We can conclude that the premises are true and the conclusion follows logically",
+    "[13:33:46] STREAM: ...n being true.\nThis is an example of a deductive argument. We can conclude that the premises are true",
+    "[13:33:46] STREAM: ...use this with the conclusion being true.\nThis is an example of a deductive argument. We can conclude",
+    "[13:33:46] STREAM: ...ust be careful not to confuse this with the conclusion being true.\nThis is an example of a deductive",
+    "[13:33:46] STREAM: ...gically sound, but we must be careful not to confuse this with the conclusion being true.\nThis is an",
+    "[13:33:46] STREAM: ...ing that it is logically sound, but we must be careful not to confuse this with the conclusion being",
+    "[13:33:45] STREAM: ...ductive argument is valid, meaning that it is logically sound, but we must be careful not to confuse",
+    "[13:33:45] STREAM: ... from the premises. The deductive argument is valid, meaning that it is logically sound, but we must",
+    "[13:33:45] STREAM: ...easonable inference from the premises. The deductive argument is valid, meaning that it is logically",
+    "[13:33:45] STREAM: ...ed by the premises and is a reasonable inference from the premises. The deductive argument is valid,",
+    "[13:33:45] STREAM: ... conclusion is supported by the premises and is a reasonable inference from the premises. The deduct",
+    "[13:33:45] STREAM: ...ly from the premises. The conclusion is supported by the premises and is a reasonable inference from",
+    "[13:33:45] STREAM: ... the conclusion follows logically from the premises. The conclusion is supported by the premises and",
+    "[13:33:45] STREAM: ...that the premises are true and the conclusion follows logically from the premises. The conclusion is",
+    "[13:33:44] STREAM: ...e argument. We can conclude that the premises are true and the conclusion follows logically from the",
+    "[13:33:44] STREAM: ... This is an example of a deductive argument. We can conclude that the premises are true and the",
+    "[13:33:44] STREAM: ... This is an example of a deductive argument. We can conclude that the",
+    "[13:33:44] STREAM: ... This is an example of a deductive argument.",
+    "[13:33:44] STREAM: ... This is an example of",
+    "[13:33:44] Q[Reasoning]: If all roses are flowers and some flowers fade quickly, can ...",
+    "[13:33:44] A:  `n` (input number). \nThe function should return the factorial of `n`. \nThe factorial of `n` is the ...",
+    "[13:33:44] STREAM: ...t` to 1, which will hold the factorial result.\n\n## Step 3: Use a loop to calculate the factorial.\nWe",
+    "[13:33:43] STREAM: ...initialize a variable `result` to 1, which will hold the factorial result.\n\n## Step 3: Use a loop to",
+    "[13:33:43] STREAM: ...esult.\nWe will initialize a variable `result` to 1, which will hold the factorial result.\n\n## Step 3",
+    "[13:33:43] STREAM: ... factorial result.\nWe will initialize a variable `result` to 1, which will hold the factorial result",
+    "[13:33:43] STREAM: ...itialize a variable to hold the factorial result.\nWe will initialize a variable `result` to 1, which",
+    "[13:33:43] STREAM: ...# Step 2: Initialize a variable to hold the factorial result.\nWe will initialize a variable `result`",
+    "[13:33:43] STREAM: ...ger `n` as input.\n\n## Step 2: Initialize a variable to hold the factorial result.\nWe will initialize",
+    "[13:33:43] STREAM: ...ctorial` that takes an integer `n` as input.\n\n## Step 2: Initialize a variable to hold the factorial",
+    "[13:33:42] STREAM: ...ll define a function called `factorial` that takes an integer `n` as input.\n\n## Step 2: Initialize a",
+    "[13:33:42] STREAM: ...arameters.\nWe will define a function called `factorial` that takes an integer `n` as input.\n\n## Step",
+    "[13:33:42] STREAM: ... function and its parameters.\nWe will define a function called `factorial` that takes an integer `n`",
+    "[13:33:42] STREAM: ...p 1: Define the function and its parameters.\nWe will define a function called `factorial` that takes",
+    "[13:33:42] STREAM: ...qual to `n`. \n\n## Step 1: Define the function and its parameters.\nWe will define a function called `",
+    "[13:33:42] STREAM: ...ive integers less than or equal to `n`. \n\n## Step 1: Define the function and its parameters.\nWe will",
+    "[13:33:42] STREAM: ...the product of all positive integers less than or equal to `n`. \n\n## Step 1: Define the function and",
+    "[13:33:41] STREAM: ...\nThe factorial of `n` is the product of all positive integers less than or equal to `n`. \n\n## Step 1",
+    "[13:33:41] STREAM: ...ial of `n`. \nThe factorial of `n` is the product of all positive integers less than or equal to `n`.",
+    "[13:33:41] STREAM: ...urn the factorial of `n`. \nThe factorial of `n` is the product of all positive integers less than or",
+    "[13:33:41] STREAM: ...mber). \nThe function should return the factorial of `n`. \nThe factorial of `n` is the product of all",
+    "[13:33:41] STREAM: ... `n` (input number). \nThe function should return the factorial of `n`. \nThe factorial of `n`",
+    "[13:33:41] STREAM: ... `n` (input number). \nThe function should return the factorial of `n`. \nThe",
+    "[13:33:41] STREAM: ... `n` (input number). \nThe function should return the factorial of",
+    "[13:33:40] STREAM: ... `n` (input number). \nThe function",
+    "[13:33:40] STREAM: ... `n` (input",
+    "[13:33:40] Q[Coding]: Write a Python function to calculate the factorial of a numb..."
   ],
   "results": [
     {
       "name": "Llama-3.2-1B-Instruct-Q8_0",
       "params": "1B",
       "quant": "Q8_0",
-      "speed": 127.49,
+      "speed": 133.82,
       "perplexity": 7.67,
-      "latency_ms": 8.25,
-      "memory_mb": 1402.0,
-      "load_time_s": 0.8,
-      "pp_speed": 1754.03,
+      "latency_ms": 7.67,
+      "memory_mb": 1396.0,
+      "load_time_s": 0.75,
+      "pp_speed": 1773.29,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " A quantum computer is a computer that uses the principles of quantum mechanics to perform calculations. Unlike a regular computer, which uses bits (0s and 1s) to process information, a quantum computer uses quantum bits or qubits.\nThink of qubits as a special kind of coin that can be both heads and tails at the same time. This means that a qubit can process multiple values simultaneously, making it much faster than a regular computer for certain types of calculations. Quantum computers are particularly useful for solving problems that are currently too difficult for regular computers, such as simulating complex chemical reactions or encrypting sensitive information.\nHere's an analogy to help illustrate the concept of qubits: Imagine you're trying to solve a puzzle by looking at one",
           "tokens": 150,
-          "time_s": 1.17
+          "time_s": 1.11
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " Here are the steps:\n\n## Step 1: Multiply the numbers 15 and 23\nTo find the product of 15 and 23, we simply multiply these two numbers together.\n\n## Step 2: Calculate the product\n15 * 23 = 345\n\nThe final answer is: $\\boxed{345}$",
           "tokens": 65,
-          "time_s": 0.53
+          "time_s": 0.5
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " To find the average speed of the train, divide the distance traveled (120 km) by the time taken (2 hours).\n\n## Step 1: We need to calculate the average speed of the train.\nTo do this, we will divide the distance traveled by the train (120 km) by the time taken (2 hours).\n\n## Step 2: Perform the division to find the average speed.\n",
           "tokens": 80,
-          "time_s": 0.63
+          "time_s": 0.6
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " \n```python\ndef factorial(n):\n    \"\"\"\n    Calculate the factorial of a given number.\n\n    Args:\n    n (int): The number to calculate the factorial of.\n\n    Returns:\n    int: The factorial of the given number.\n\n    Raises:\n    ValueError: If the input number is negative.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Factorial is not defined for negative numbers.\")\n\n    # Base case: 1! = 1\n    if n == 0 or n == 1:\n        return 1\n\n    # Recursive case: n! =",
           "tokens": 120,
-          "time_s": 0.93
+          "time_s": 0.89
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " But if we know that some flowers fade quickly, can we conclude that some roses fade quickly?\nThe answer is no, we cannot conclude that some roses fade quickly based on the information that some flowers fade quickly. The information about some flowers fading quickly does not provide information about the roses.\nNote: If we had more information about the roses, we could conclude that some roses fade quickly. For example, if we knew that some roses are red and some are yellow, we could conclude that some roses fade",
           "tokens": 100,
-          "time_s": 0.79
+          "time_s": 0.75
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -109,19 +109,19 @@
       "name": "Llama-3.2-1B-Instruct-Q6_K",
       "params": "1B",
       "quant": "Q6_K",
-      "speed": 118.17,
+      "speed": 118.88,
       "perplexity": 6.76,
-      "latency_ms": 8.25,
+      "latency_ms": 8.81,
       "memory_mb": 1065.0,
-      "load_time_s": 0.62,
-      "pp_speed": 1774.15,
+      "load_time_s": 0.6,
+      "pp_speed": 1729.26,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " \n\nQuantum computing is a new way of processing information that's different from the way computers work today. Here's a simplified explanation:\n\n**Classical computers**: Think of a computer like a really smart, but slow, librarian. They take tiny pieces of information (called bits) and use them to perform calculations. The librarian can only look at one piece of information at a time, and the calculations are done one step at a time.\n\n**Quantum computers**: Imagine you have a super-powerful librarian who can look at ALL the information in one place at the same time! With quantum computers, they can do calculations on ALL the information simultaneously, which makes them REALLY FAST and REALLY POWERFUL.\n\nThe key idea behind quantum computing is that tiny particles",
           "tokens": 150,
-          "time_s": 1.28
+          "time_s": 1.27
         },
         {
           "category": "Math - Basic",
@@ -135,7 +135,7 @@
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " To find the average speed of the train, divide the distance traveled (120 km) by the time taken (2 hours).\n\n## Step 1: We need to calculate the average speed of the train.\nTo do this, we will divide the distance traveled by the time taken.\n\n## Step 2: Perform the division to get the average speed.\nAverage speed = distance / time = 120 km",
           "tokens": 80,
-          "time_s": 0.68
+          "time_s": 0.67
         },
         {
           "category": "Coding",
@@ -149,7 +149,7 @@
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " But if all roses are flowers, then some flowers fade quickly, so some roses must fade quickly.\nThis is a classic example of a syllogism. Let's analyze it step by step.\n\nThe first premise is:\n\"If all roses are flowers, then some flowers fade quickly.\"\nThe second premise is:\n\"Some flowers fade quickly.\"\nThe conclusion is:\n\"Some roses fade quickly.\"\n\nNow, let's examine the premises:\n\n* \"If all roses are flowers\" is a universal statement. It implies that",
           "tokens": 100,
-          "time_s": 0.84
+          "time_s": 0.83
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -159,47 +159,47 @@
       "name": "Llama-3.2-1B-Instruct-Q4_K_M",
       "params": "1B",
       "quant": "Q4_K_M",
-      "speed": 162.25,
+      "speed": 152.53,
       "perplexity": 6.67,
-      "latency_ms": 6.07,
-      "memory_mb": 837.0,
+      "latency_ms": 6.76,
+      "memory_mb": 841.0,
       "load_time_s": 0.51,
-      "pp_speed": 1884.56,
+      "pp_speed": 1823.44,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " \n\n## Step 1: Understanding the Basics of Computing\nTo explain quantum computing in simple terms, we first need to understand the basics of computing. Computing involves processing information using digital logic, which is based on binary numbers (0s and 1s).\n\n## Step 2: Defining Quantum Computing\nQuantum computing is a new type of computing that uses the principles of quantum mechanics, which describe the behavior of particles at the atomic and subatomic level. Unlike traditional computers, which use bits that can only be in a 0 or 1 state, quantum computers use qubits (quantum bits), which can exist in a superposition of both 0 and 1 states simultaneously.\n\n## Step 3: How Quantum Computing Works\n",
           "tokens": 150,
-          "time_s": 0.94
+          "time_s": 1.0
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " First, multiply 15 and 20.\n15 * 20 = 300\nNow, multiply 15 and 3.\n15 * 3 = 45\nAdd 300 and 45 together.\n300 + 45 = 345\nThe answer is 345.",
           "tokens": 56,
-          "time_s": 0.35
+          "time_s": 0.37
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " To find the average speed, divide the distance by the time. We will use the formula: Average Speed = Distance / Time.\n\n## Step 1:  Identify the given values in the problem\nThe distance traveled by the train is 120 km, and the time taken is 2 hours.\n\n## Step 2: Apply the formula to calculate the average speed\nTo find the average speed,",
           "tokens": 80,
-          "time_s": 0.49
+          "time_s": 0.52
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " \n## Factorial Function\n### Overview\n\nThe factorial of a non-negative integer `n`, denoted by `n!`, is the product of all positive integers less than or equal to `n`. \n\n### Example Use Cases\n\n```python\n# Calculate factorial of 5\nprint(5 * 4 * 3 * 2 * 1)  # Output: 120\n# Calculate factorial of 0\nprint(0 * 1)  # Output: 0\n# Calculate factorial of negative number\nprint(-1 * -2 * -3)  #",
           "tokens": 120,
-          "time_s": 0.73
+          "time_s": 0.78
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " If not, what is the reason for this apparent contradiction?\n\n## Step 1:  Understanding the statement \"If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?\"\nThe statement seems to imply that if all roses are indeed flowers, and there are flowers among them that fade quickly, then we can infer that some roses also fade quickly. This appears to be a straightforward application of logic based on the premise that all roses are flowers.\n\n## Step 2:",
           "tokens": 100,
-          "time_s": 0.61
+          "time_s": 0.65
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -209,40 +209,40 @@
       "name": "Llama-3.2-1B-Instruct-Q3_K_L",
       "params": "1B",
       "quant": "Q3_K_L",
-      "speed": 148.92,
+      "speed": 140.77,
       "perplexity": 5.86,
-      "latency_ms": 6.52,
-      "memory_mb": 764.0,
-      "load_time_s": 0.48,
-      "pp_speed": 1847.14,
+      "latency_ms": 7.0,
+      "memory_mb": 770.0,
+      "load_time_s": 0.47,
+      "pp_speed": 1733.57,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " \n\nQuantum computing is a new way of processing information that uses the principles of quantum mechanics. It's like a super-powerful computer that can solve problems that are too big or too hard for regular computers to solve.\n\nHere's how it works:\n\n1. **Quantum bits** (qubits): Quantum computers use special bits called qubits that can exist in multiple states at the same time. Think of it like a coin that can be both heads and tails simultaneously!\n2. **Superposition:** Qubits can exist in multiple states at the same time, allowing them to represent multiple possibilities simultaneously.\n3. **Entanglement:** Qubits can become \"entangled\" with each other, meaning if something happens to one qubit, it",
           "tokens": 150,
-          "time_s": 1.02
+          "time_s": 1.07
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " I'll tell me the answer.\n\n## Step 1: Multiply the numbers 15 and 23\nTo find the product of 15 and 23, we need to multiply these two numbers together.\n\n## Step 2: Perform the multiplication\n15 * 23 = 345\n\n## Step 3: Write the answer\nWe will write the result of the multiplication as the final answer.\n\n\nThe final answer is: $\\boxed{345}$",
           "tokens": 90,
-          "time_s": 0.6
+          "time_s": 0.63
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " We can solve this problem by first converting the time from hours to 24 hours (or 1 day), and then we can divide the distance by that number to find the average speed.\n\n## Step 1: First, let's convert the given time from hours to days.\nThere are 24 hours in a day, so 2 hours is equal to 2/24 = 1/",
           "tokens": 80,
-          "time_s": 0.53
+          "time_s": 0.56
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " \n### factorial function\n#### factorial calculation function\n\nThe function should take an integer `n` as input and return its factorial.\n\n### factorial calculation function\n#### factorial calculation function\n\nHere is a Python function that calculates the factorial of a number:\n\n```python\ndef factorial(n):\n    \"\"\"\n    Calculate the factorial of a number.\n\n    Args:\n        n (int): The number for which the factorial is to be calculated.\n\n    Returns:\n        int: The factorial of the number n.\n\n    Raises:\n        ValueError: If n is a negative number.\n    \"\"\"\n    if n < 0:\n",
           "tokens": 120,
-          "time_s": 0.79
+          "time_s": 0.84
         },
         {
           "category": "Reasoning",
@@ -259,47 +259,47 @@
       "name": "Llama-3.2-3B-Instruct-Q8_0",
       "params": "3B",
       "quant": "Q8_0",
-      "speed": 58.86,
+      "speed": 57.62,
       "perplexity": 6.78,
-      "latency_ms": 17.76,
-      "memory_mb": 3292.0,
-      "load_time_s": 1.97,
-      "pp_speed": 789.34,
+      "latency_ms": 17.1,
+      "memory_mb": 3294.0,
+      "load_time_s": 1.89,
+      "pp_speed": 822.7,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " The basics of quantum computing explained\nQuantum computing is a new way of processing information that uses the principles of quantum mechanics to perform calculations. Here's a simplified explanation of the basics:\n\n**Classical Computing vs. Quantum Computing**\n\nImagine you're trying to find a specific book in a huge library. A classical computer would look through the books one by one, checking the titles and authors until it finds the one you're looking for. This process is like a series of yes-or-no questions: \"Is the book on the left? No? Okay, is it on the right?\" This is how a classical computer processes information.\n\nQuantum computing works differently. It's like having a magic librarian who can look at all the books simultaneously and find the",
           "tokens": 150,
-          "time_s": 2.54
+          "time_s": 2.59
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " \nHere is the problem:\n\n15 * 20 = 300\n15 * 3 = 45\n----------------\n15 * 23 = ?\n\nI can answer this problem. I just need to add the two results together.\n\n15 * 23 = 15 * 20 + 15 * 3\n= 300 + 45\n= 345\n\nThe final answer is: $boxed{345}$.\n\nTherefore, 15 * 23 = 345.",
           "tokens": 96,
-          "time_s": 1.64
+          "time_s": 1.67
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " \n\n## Step 1: Define the formula for average speed\nAverage speed is calculated by dividing the total distance traveled by the total time taken.\n\n## Step 2: Identify the total distance traveled by the train\nThe total distance traveled by the train is given as 120 km.\n\n## Step 3: Identify the total time taken by the train to travel the distance\nThe total time taken by",
           "tokens": 80,
-          "time_s": 1.36
+          "time_s": 1.39
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " `n! = n * (n-1) * (n-2) * ... * 2 * 1`. The function should take an integer `n` as input and return the factorial of `n`.\n\n## Step 1: Define the function with an input parameter `n`\n```python\ndef factorial(n):\n```\n\n## Step 2: Initialize the result variable to 1\nThe factorial of any number is 1, so we initialize our result variable to 1.\n```python\n    result = 1\n```\n\n## Step 3: Iterate from ",
           "tokens": 120,
-          "time_s": 2.03
+          "time_s": 2.08
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " This is an example of a classic logical fallacy called the \"undistributed middle\" fallacy.\n\n## Step 1: Identify the premises of the argument.\nThe argument consists of two premises: \"all roses are flowers\" and \"some flowers fade quickly.\"\n\n## Step 2: Determine the middle term of the argument.\nThe middle term is \"flowers,\" which is a characteristic shared by both roses and the flowers that fade quickly.\n\n## Step 3: Analyze the argument to see if the",
           "tokens": 100,
-          "time_s": 1.7
+          "time_s": 1.74
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -309,47 +309,47 @@
       "name": "Llama-3.2-3B-Instruct-Q6_K",
       "params": "3B",
       "quant": "Q6_K",
-      "speed": 50.07,
+      "speed": 50.78,
       "perplexity": 4.99,
-      "latency_ms": 24.15,
-      "memory_mb": 2552.0,
-      "load_time_s": 1.53,
-      "pp_speed": 794.32,
+      "latency_ms": 19.23,
+      "memory_mb": 2524.0,
+      "load_time_s": 1.62,
+      "pp_speed": 811.55,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " The basics of quantum computing explained\nQuantum computing is a new way of processing information that uses the principles of quantum mechanics to perform calculations. Here's a simple explanation of the basics:\n\n**Classical Computing vs. Quantum Computing**\n\nImagine you're trying to find a specific book in a huge library. A classical computer would look through the books one by one, checking the titles and authors until it finds the one you're looking for. This process is like a series of yes-or-no questions: \"Is the book on the left? No? Okay, move to the right. Is it on the second shelf? No? Okay, move up.\"\n\nQuantum computing works in a similar way, but it's much more powerful and efficient. Instead of",
           "tokens": 150,
-          "time_s": 2.92
+          "time_s": 2.95
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " \nHere is the problem:\n\n15 * 23 =\n\nStep 1: Multiply 10 * 23\n10 * 23 = 230\n\nStep 2: Multiply 5 * 23\n5 * 23 = 115\n\nStep 3: Add the two products together\n230 + 115 = 345\n\nSo the final answer is 345. \n\nIs this the correct answer? Yes, I followed the order of operations and broke down the multiplication problem into smaller, manageable",
           "tokens": 100,
-          "time_s": 1.94
+          "time_s": 1.97
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " \n\n## Step 1: Define the formula for average speed\nAverage speed is calculated by dividing the total distance traveled by the total time taken.\n\n## Step 2: Identify the total distance traveled by the train\nThe total distance traveled by the train is given as 120 km.\n\n## Step 3: Identify the total time taken by the train\nThe total time taken by the train is given",
           "tokens": 80,
-          "time_s": 1.63
+          "time_s": 1.58
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " `n! = n * (n-1) * (n-2) * ... * 2 * 1`\n\nHere's a simple implementation using recursion:\n\n```python\ndef factorial(n):\n    if n == 0 or n == 1:\n        return 1\n    else:\n        return n * factorial(n-1)\n```\n\nHowever, this recursive implementation has a significant performance issue, as it recalculates the same sub-problems multiple times. This can be improved using dynamic programming.\n\n### Iterative Implementation\n\nWe can use a loop to calculate the factorial, without",
           "tokens": 120,
-          "time_s": 2.42
+          "time_s": 2.35
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " This is an example of a classic logical fallacy called the \"affirming the consequent.\"\nThe argument is structured as follows:\nAll A are B (All roses are flowers)\nSome B are not C (Some flowers fade quickly)\n\u2234 Some A are not C (Some roses fade quickly)\nThe conclusion that some roses fade quickly is not supported by the premises. The fact that some flowers fade quickly does not provide information about the behavior of roses specifically. The conclusion is a non-sequ",
-          "tokens": 100,
-          "time_s": 2.07
+          "tokens": 99,
+          "time_s": 1.96
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -359,47 +359,47 @@
       "name": "Llama-3.2-3B-Instruct-Q4_K_M",
       "params": "3B",
       "quant": "Q4_K_M",
-      "speed": 69.55,
+      "speed": 72.09,
       "perplexity": 5.63,
-      "latency_ms": 20.85,
-      "memory_mb": 2114.0,
-      "load_time_s": 1.11,
-      "pp_speed": 844.15,
+      "latency_ms": 13.72,
+      "memory_mb": 2058.0,
+      "load_time_s": 1.19,
+      "pp_speed": 861.61,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " a brief overview\n**Quantum Computing: A Simplified Explanation**\n\nImagine you have a combination lock with 10 numbers (0-9). A classical computer would try each number one by one, like a trial-and-error process. This can take a long time, especially if you need to try many combinations.\n\n**Quantum Computing: A New Approach**\n\nA quantum computer is like a special combination lock that can try all the numbers simultaneously. This is called a \"quantum parallelism.\" It uses the strange properties of atoms and subatomic particles to process information in a way that's different from classical computers.\n\n**Key Concepts:**\n\n1. **Qubits (quantum bits):** These are the quantum equivalent of bits (0s and",
           "tokens": 150,
-          "time_s": 2.11
+          "time_s": 2.08
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " \nHere is the problem:\n\n15 * 20 = 300\n15 * 3 = 45\n______\n15 * 23 = ?\n\n## Step 1: Calculate the product of 15 and 20\nFirst, we calculate the product of 15 and 20, which is 300.\n\n## Step 2: Calculate the product of 15 and 3\nNext, we calculate the product of 15 and 3, which is 45.\n\n## Step 3",
           "tokens": 100,
-          "time_s": 1.41
+          "time_s": 1.37
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " \n\n## Step 1: Define the formula for average speed\nAverage speed is calculated by dividing the total distance traveled by the total time taken.\n\n## Step 2: Identify the total distance and time\nThe total distance traveled by the train is 120 km, and the total time taken is 2 hours.\n\n## Step 3: Apply the formula for average speed\nAverage speed = Total distance",
           "tokens": 80,
-          "time_s": 1.13
+          "time_s": 1.11
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " `n! = n * (n-1) * (n-2) * ... * 1`.\n\n### Solution\n\n```python\ndef factorial(n):\n    \"\"\"\n    Calculate the factorial of a non-negative integer.\n\n    Args:\n        n (int): The input number.\n\n    Returns:\n        int: The factorial of n.\n\n    Raises:\n        ValueError: If n is a negative integer.\n\n    \"\"\"\n    if not isinstance(n, int):\n        raise TypeError(\"Input must be an integer.\")\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n\n",
           "tokens": 120,
-          "time_s": 1.8
+          "time_s": 1.66
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " If so, and if we want to conclude that some roses fade quickly, how can we do so?\n\n## Step 1: Understand the given statements\nWe are given two statements: all roses are flowers, and some flowers fade quickly.\n\n## Step 2: Analyze the first statement\nThe first statement, \"all roses are flowers,\" implies that every rose belongs to the category of flowers.\n\n## Step 3: Analyze the second statement\nThe second statement, \"some flowers fade quickly",
           "tokens": 100,
-          "time_s": 1.47
+          "time_s": 1.41
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -409,47 +409,47 @@
       "name": "Llama-3.2-3B-Instruct-Q3_K_L",
       "params": "3B",
       "quant": "Q3_K_L",
-      "speed": 66.3,
+      "speed": 64.11,
       "perplexity": 6.35,
-      "latency_ms": 15.53,
-      "memory_mb": 1932.0,
+      "latency_ms": 15.71,
+      "memory_mb": 1928.0,
       "load_time_s": 0.97,
-      "pp_speed": 817.35,
+      "pp_speed": 811.69,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " \"Quantum computing is like a super-powerful calculator that uses the weird and wonderful world of quantum mechanics to solve problems that regular computers can't.\"\nWhat's the difference between a quantum computer and a classical computer?\nA quantum computer uses the principles of quantum mechanics to perform calculations, while a classical computer uses classical physics to perform calculations. The main difference is that quantum computers rely on the principles of superposition, entanglement, and interference to process information, whereas classical computers rely on the principles of logic and Boolean algebra to process information.\nCan a quantum computer be hacked?\nLike classical computers, quantum computers can be vulnerable to hacking and cybersecurity threats. However, the unique characteristics of quantum computing make it even more challenging for hackers to exploit. Quantum computers",
           "tokens": 150,
-          "time_s": 2.26
+          "time_s": 2.31
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " \nHere is the problem:\n\n15 \u00d7 23 =\n\nStep 1: Multiply the tens place of 15 (1 x 20) \n1 x 20 = 20\n\nStep 2: Multiply the ones place of 15 (1 x 3)\n1 x 3 = 3\n\nStep 3: Add the two products together\n20 + 3 = 23 \n\nSo, 15 \u00d7 23 = 23 \u00d7 15 = 345\n\nAnswer: ",
           "tokens": 100,
-          "time_s": 1.52
+          "time_s": 1.65
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " \n\n## Step 1: We need to recall the formula for calculating average speed.\nThe formula for average speed is total distance traveled divided by the total time taken.\n\n## Step 2: Identify the total distance traveled by the train.\nThe total distance traveled by the train is given as 120 km.\n\n## Step 3: Identify the total time taken by the train.\nThe total time taken by",
           "tokens": 80,
-          "time_s": 1.22
+          "time_s": 1.23
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " factorial(n)\n\n## Step 1: Define the function and its purpose\nThe function `factorial(n)` calculates the factorial of a given number `n`. The factorial of a number is the product of all positive integers less than or equal to that number.\n\n## Step 2: Initialize the result variable\nWe initialize the result variable `result` to 1. This variable will store the factorial of the given number.\n\n## Step 3: Loop through numbers from 2 to n\nWe use a for loop to iterate through numbers from 2 to `n`.\n\n## Step 4:",
           "tokens": 120,
-          "time_s": 1.8
+          "time_s": 1.85
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " (Yes/No)\n\n## Step 1: Analyze the given information\nWe are given that all roses are flowers and some flowers fade quickly. We need to determine if we can conclude that some roses fade quickly.\n\n## Step 2: Identify the relationship between roses and flowers\nSince all roses are flowers, we can conclude that roses are a subset of flowers.\n\n## Step 3: Consider the statement \"some flowers fade quickly\"\nSince some flowers fade quickly, it means that there are flowers",
           "tokens": 100,
-          "time_s": 1.51
+          "time_s": 1.53
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -459,47 +459,47 @@
       "name": "Meta-Llama-3.1-8B-Instruct-Q8_0",
       "params": "8B",
       "quant": "Q8_0",
-      "speed": 27.7,
+      "speed": 27.09,
       "perplexity": 5.58,
-      "latency_ms": 35.92,
-      "memory_mb": 7667.0,
-      "load_time_s": 4.7,
-      "pp_speed": 167.15,
+      "latency_ms": 36.4,
+      "memory_mb": 7543.0,
+      "load_time_s": 4.71,
+      "pp_speed": 307.83,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " It's like a superpower for computers that lets them solve problems that would take them years to solve normally. But instead of using a single path to solve the problem, a quantum computer uses many paths at the same time.\nImagine you have a combination lock with 10 numbers. To crack the code, you would try each number one by one, taking 10 tries to open the lock. A quantum computer can try all 10 numbers at the same time, opening the lock instantly.\nQuantum computers use a special property called superposition to perform many calculations simultaneously, making them much faster than classical computers. This property allows quantum computers to process vast amounts of data and make predictions about complex systems, which could lead to breakthroughs in fields like medicine",
           "tokens": 150,
-          "time_s": 5.46
+          "time_s": 5.7
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " \nStep 1:  Multiply 15 and 20\n15 * 20 = 300\nStep 2: Multiply 15 and 3\n15 * 3 = 45\nStep 3: Add the results of step 1 and step 2\n300 + 45 = 345\nAnswer: 345\nStep 1:  Multiply 15 and 20\n15 * 20 = 300\nStep 2: Multiply 15 and 3\n",
           "tokens": 100,
-          "time_s": 3.63
+          "time_s": 3.66
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " A) 20 km/h B) 40 km/h C) 60 km/h D) 80 km/h E) 120 km/h\n\n## Step 1: Identify the formula for average speed.\nThe formula for average speed is total distance traveled divided by the total time taken.\n\n## Step 2: Plug in the given values into the formula.\nGiven that the train travels 120",
           "tokens": 80,
-          "time_s": 2.89
+          "time_s": 2.95
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " `calculate_factorial(n)`. This function should take an integer `n` as input and return the factorial of `n`. If `n` is a negative number, the function should raise a `ValueError` with a message indicating that the input must be a non-negative integer.\n\nHere is a basic implementation of the `calculate_factorial` function using a for loop:\n\n```python\ndef calculate_factorial(n):\n    if not isinstance(n, int):\n        raise TypeError(\"Input must be an integer.\")\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative",
           "tokens": 120,
-          "time_s": 4.29
+          "time_s": 4.36
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " Explain your answer.\n## Step 1: Understand the given statements\nThe first statement is that all roses are flowers. This means that every rose is included in the category of flowers. The second statement says that some flowers fade quickly. This implies that not all flowers are long-lasting.\n\n## Step 2: Apply the principle of categorical reasoning\nTo determine if some roses fade quickly, we need to see if the property of fading quickly is a characteristic that is shared by roses, based on the information",
           "tokens": 100,
-          "time_s": 3.59
+          "time_s": 3.65
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -509,47 +509,47 @@
       "name": "Meta-Llama-3.1-8B-Instruct-Q6_K",
       "params": "8B",
       "quant": "Q6_K",
-      "speed": 23.84,
+      "speed": 23.76,
       "perplexity": 4.07,
-      "latency_ms": 42.13,
-      "memory_mb": 6286.0,
+      "latency_ms": 41.72,
+      "memory_mb": 6419.0,
       "load_time_s": 3.85,
-      "pp_speed": 373.49,
+      "pp_speed": 361.23,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " Qubits, Superposition, Entanglement, and more\nQuantum computing is a new and exciting field that has the potential to revolutionize the way we approach complex problems in fields such as medicine, finance, and materials science. But don't worry, I'm here to explain it in simple terms, so you can understand the basics of quantum computing without needing a PhD in physics.\n**What is Quantum Computing?**\nQuantum computing is a type of computing that uses the principles of quantum mechanics to perform calculations. In traditional computing, information is represented as bits, which can only be in one of two states: 0 or 1. Quantum computers, on the other hand, use qubits (quantum bits), which can exist in",
           "tokens": 150,
-          "time_s": 6.28
+          "time_s": 6.31
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " I can help you with that. The first step is to multiply the numbers together. Here's how you can do it:\n\n## Step 1: Multiply 15 and 20\nFirst, we multiply 15 and 20. 15 * 20 = 300.\n\n## Step 2: Multiply 15 and 3\nThen, we multiply 15 and 3. 15 * 3 = 45.\n\n## Step 3: Add the results\nNow, we add",
           "tokens": 100,
-          "time_s": 4.18
+          "time_s": 4.21
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " A) 20 B) 40 C) 60 D) 80\n## Step 1: To find the average speed of the train, we need to divide the total distance traveled by the total time taken.\n## Step 2: The total distance traveled by the train is given as 120 km.\n## Step 3: The total time taken by the train to travel 120",
           "tokens": 80,
-          "time_s": 3.36
+          "time_s": 3.39
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " `calculate_factorial(n)`. This function should take an integer `n` as input and return the factorial of `n`. If `n` is a negative number, the function should raise a `ValueError` with a message indicating that the input must be a non-negative integer.\n\nHere is a basic implementation of the `calculate_factorial` function using a for loop:\n\n```python\ndef calculate_factorial(n):\n    if not isinstance(n, int):\n        raise TypeError(\"Input must be an integer.\")\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative",
           "tokens": 120,
-          "time_s": 5.06
+          "time_s": 5.04
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " Explain your answer.\n## Step 1: Understand the given statements\nThe problem states that all roses are flowers and some flowers fade quickly. We need to determine if we can conclude that some roses fade quickly based on these statements.\n\n## Step 2: Analyze the relationship between the statements\nTo determine if we can conclude that some roses fade quickly, we need to analyze the relationship between the statements. The first statement says that all roses are flowers, which means that roses are a subset of flowers",
           "tokens": 100,
-          "time_s": 4.19
+          "time_s": 4.2
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -559,47 +559,47 @@
       "name": "Meta-Llama-3.1-8B-Instruct-Q4_K_M",
       "params": "8B",
       "quant": "Q4_K_M",
-      "speed": 37.0,
+      "speed": 36.76,
       "perplexity": 4.72,
-      "latency_ms": 27.57,
-      "memory_mb": 4473.0,
-      "load_time_s": 2.72,
-      "pp_speed": 388.35,
+      "latency_ms": 26.47,
+      "memory_mb": 4430.0,
+      "load_time_s": 2.8,
+      "pp_speed": 397.94,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " An introduction to the basics of quantum computing\nQuantum computing is a relatively new and rapidly evolving field that has gained significant attention in recent years. While it's a complex subject, I'll try to break it down in simple terms to help you understand the basics.\n**What is Quantum Computing?**\n\nQuantum computing is a type of computing that uses the principles of quantum mechanics to perform calculations and operations on data. Unlike classical computers, which use bits (0s and 1s) to process information, quantum computers use qubits (quantum bits).\n\n**Classical Computing vs. Quantum Computing**\n\nClassical computers use bits to represent information as either 0 or 1. This means that each bit can have only two possible values. Quantum",
           "tokens": 150,
-          "time_s": 4.0
+          "time_s": 4.04
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " I want to see the work for a 15 x 23 multiplication problem. Here are the steps:\nStep 1: Write the problem. 15 * 23 =\nStep 2: Multiply the numbers.\nStep 3: Write the answer.\nHere is the work for a 15 x 23 multiplication problem. Multiply the numbers in Step 2. The numbers are 15 and 23. Multiply 15 times 20. 15 x 20 = 300. Multiply ",
           "tokens": 100,
-          "time_s": 2.68
+          "time_s": 2.72
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " (1 km/h = 5/18 m/s)\n## Step 1: First, let's recall the formula for average speed, which is total distance traveled divided by the total time taken.\nThe formula for average speed is: Average Speed = Total Distance / Total Time.\n\n## Step 2: Given that the train travels 120 km in 2 hours, we can substitute these values into",
           "tokens": 80,
-          "time_s": 2.16
+          "time_s": 2.19
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " `def factorial(n):` that raises an exception when `n` is less than 0. Write a test script to test the function.\n\n```python\nimport unittest\n\ndef factorial(n):\n    \"\"\"\n    Calculate the factorial of a number.\n\n    Args:\n    n (int): The number to calculate the factorial of.\n\n    Returns:\n    int: The factorial of n.\n\n    Raises:\n    ValueError: If n is less than 0.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    elif n == 0:\n        return",
           "tokens": 120,
-          "time_s": 3.2
+          "time_s": 3.29
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " [duplicate]\nThis is a classic example of a syllogism.\nPremise 1: All roses are flowers.\nPremise 2: Some flowers fade quickly.\nConclusion: Some roses fade quickly.\nThe conclusion is correct, by the way.\nNow, let's analyze it step by step.\nPremise 1: All roses are flowers.\nThis premise is true, as roses are indeed a type of flower.\nPremise 2: Some flowers fade quickly.\nThis premise is also true",
           "tokens": 100,
-          "time_s": 2.83
+          "time_s": 2.73
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",
@@ -609,47 +609,47 @@
       "name": "Meta-Llama-3.1-8B-Instruct-Q3_K_M",
       "params": "8B",
       "quant": "Q3_K_M",
-      "speed": 34.1,
+      "speed": 33.84,
       "perplexity": 5.69,
-      "latency_ms": 28.17,
-      "memory_mb": 3758.0,
-      "load_time_s": 2.34,
-      "pp_speed": 374.9,
+      "latency_ms": 28.59,
+      "memory_mb": 3765.0,
+      "load_time_s": 2.41,
+      "pp_speed": 386.39,
       "test_responses": [
         {
           "category": "Explanation",
           "prompt": "Explain quantum computing in simple terms:",
           "response": " quantum computing is a new kind of computer that uses the strange properties of the quantum world to solve problems that are too hard or take too long for classical computers.\nImagine you have a coin, and you flip it. The coin can be either heads or tails. Now imagine you have many coins, and you flip them all at the same time. You can't predict which heads or tails each coin will land on, but you can predict the probability of getting heads or tails across all the coins. This is similar to how quantum computing works, using many particles to solve complex problems.\nClassical computers use \"bits\" to store information, which can be either 0 or 1. Quantum computers use \"qubits,\" which can be both 0",
           "tokens": 150,
-          "time_s": 4.34
+          "time_s": 4.48
         },
         {
           "category": "Math - Basic",
           "prompt": "What is 15 * 23? Show your work step by step.",
           "response": " You must use the distributive property for this one.\n\n## Step 1: Apply the distributive property\nTo find 15 * 23, we first need to apply the distributive property. This means we need to multiply 15 by each digit of 23 separately.\n\n## Step 2: Multiply 15 by 20\nWe multiply 15 by the tens digit of 23, which is 20. So, 15 * 20 = 300.\n\n## Step 3",
           "tokens": 100,
-          "time_s": 2.88
+          "time_s": 3.04
         },
         {
           "category": "Math - Word Problem",
           "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
           "response": " A) 45 B) 60 C) 90 D) 120\n## Step 1: Calculate the average speed by dividing the total distance by the total time.\nTo find the average speed, we divide the total distance traveled by the total time taken. In this case, the total distance is 120 km and the total time is 2 hours.\n\n## Step 2: Perform",
           "tokens": 80,
-          "time_s": 2.33
+          "time_s": 2.34
         },
         {
           "category": "Coding",
           "prompt": "Write a Python function to calculate the factorial of a number:",
           "response": " `n` (input number). \nThe function should return the factorial of `n`. \nThe factorial of `n` is the product of all positive integers less than or equal to `n`. \n\n## Step 1: Define the function and its parameters.\nWe will define a function called `factorial` that takes an integer `n` as input.\n\n## Step 2: Initialize a variable to hold the factorial result.\nWe will initialize a variable `result` to 1, which will hold the factorial result.\n\n## Step 3: Use a loop to calculate the factorial.\nWe",
           "tokens": 120,
-          "time_s": 3.5
+          "time_s": 3.49
         },
         {
           "category": "Reasoning",
           "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
           "response": " This is an example of a deductive argument. We can conclude that the premises are true and the conclusion follows logically from the premises. The conclusion is supported by the premises and is a reasonable inference from the premises. The deductive argument is valid, meaning that it is logically sound, but we must be careful not to confuse this with the conclusion being true.\nThis is an example of a deductive argument. We can conclude that the premises are true and the conclusion follows logically from the premises. The",
           "tokens": 100,
-          "time_s": 3.08
+          "time_s": 2.91
         }
       ],
       "sample_prompt": "Explain quantum computing in simple terms:",

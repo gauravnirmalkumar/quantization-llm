@@ -26,27 +26,27 @@ def main():
         {
             "category": "Explanation",
             "prompt": "Explain quantum computing in simple terms:",
-            "max_tokens": 150
+            "max_tokens": 250  # Increased from 150
         },
         {
             "category": "Math - Basic",
             "prompt": "What is 15 * 23? Show your work step by step.",
-            "max_tokens": 100
+            "max_tokens": 200  # Increased from 100
         },
         {
             "category": "Math - Word Problem",
             "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
-            "max_tokens": 80
+            "max_tokens": 150  # Increased from 80
         },
         {
             "category": "Coding",
             "prompt": "Write a Python function to calculate the factorial of a number:",
-            "max_tokens": 120
+            "max_tokens": 250  # Increased from 120
         },
         {
             "category": "Reasoning",
             "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
-            "max_tokens": 100
+            "max_tokens": 200  # Increased from 100
         }
     ]
     

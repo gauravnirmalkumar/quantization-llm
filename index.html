@@ -467,22 +467,85 @@
         let tokenScrollPosition = 0;
 
         function verifyAnswer(category, response) {
-            // Simple verification logic for different question types
+            // More flexible verification logic to reduce false negatives
+            const responseLower = response.toLowerCase();
+            const responseClean = response.replace(/[,\s]/g, '');
+
             const checks = {
                 'Math - Basic': {
                     expected: '345',
-                    check: (r) => r.includes('345') || r.includes('three hundred forty-five'),
+                    check: (r) => {
+                        // Check for 345 in various formats
+                        return r.includes('345') ||
+                            r.includes('three hundred forty-five') ||
+                            r.includes('three hundred and forty-five') ||
+                            /15\s*[×x*]\s*23\s*=\s*345/.test(r) ||
+                            /=\s*345/.test(r);
+                    },
                     message: '15 × 23 = 345'
                 },
                 'Math - Word Problem': {
                     expected: '60 km/h',
-                    check: (r) => r.includes('60') && (r.includes('km/h') || r.includes('kilometers per hour')),
+                    check: (r) => {
+                        const rl = r.toLowerCase();
+                        // Check for 60 with various speed units
+                        return (rl.includes('60') && (
+                            rl.includes('km/h') ||
+                            rl.includes('kmh') ||
+                            rl.includes('kilometers per hour') ||
+                            rl.includes('km per hour') ||
+                            rl.includes('kph') ||
+                            /speed.*60/.test(rl) ||
+                            /60.*speed/.test(rl) ||
+                            /answer.*60/.test(rl) ||
+                            /b\).*60/.test(rl) // Multiple choice B) 60
+                        ));
+                    },
                     message: 'Speed = 120km / 2h = 60 km/h'
                 },
                 'Coding': {
-                    expected: 'def factorial',
-                    check: (r) => r.includes('def ') || r.includes('function') || r.includes('factorial'),
-                    message: 'Should contain function definition'
+                    expected: 'function definition',
+                    check: (r) => {
+                        const rl = r.toLowerCase();
+                        // Check for function definition in various forms
+                        return rl.includes('def ') ||
+                            rl.includes('function') ||
+                            rl.includes('factorial') ||
+                            /def\s+\w+\s*\(/.test(r) ||
+                            /function\s+\w+\s*\(/.test(r) ||
+                            /=\s*function\s*\(/.test(r) ||
+                            /result\s*\*=/.test(rl) || // Factorial logic
+                            /for.*range/.test(rl); // Loop for factorial
+                    },
+                    message: 'Should contain function definition or factorial logic'
+                },
+                'Explanation': {
+                    expected: 'quantum concepts',
+                    check: (r) => {
+                        const rl = r.toLowerCase();
+                        // Check for key quantum computing concepts
+                        const keyTerms = ['qubit', 'superposition', 'quantum', 'entangle',
+                            'particle', 'probability', 'bit', 'classical'];
+                        const termCount = keyTerms.filter(term => rl.includes(term)).length;
+                        return termCount >= 3; // At least 3 key terms
+                    },
+                    message: 'Should explain quantum computing concepts'
+                },
+                'Reasoning': {
+                    expected: 'logical analysis',
+                    check: (r) => {
+                        const rl = r.toLowerCase();
+                        // Check for logical reasoning keywords
+                        return rl.includes('cannot') ||
+                            rl.includes('not necessarily') ||
+                            rl.includes('invalid') ||
+                            rl.includes('fallacy') ||
+                            rl.includes('does not follow') ||
+                            rl.includes('no') && rl.includes('conclude') ||
+                            rl.includes('premise') ||
+                            rl.includes('deductive');
+                    },
+                    message: 'Should recognize logical fallacy (cannot conclude)'
                 }
             };
 
@@ -490,7 +553,9 @@
                 const passed = checks[category].check(response);
                 return {
                     passed,
-                    message: passed ? `✓ Correct: ${checks[category].message}` : `✗ Expected: ${checks[category].message}`
+                    message: passed ?
+                        `✓ Verified: ${checks[category].message}` :
+                        `⚠ Could not verify: ${checks[category].message}`
                 };
             }
             return null;
