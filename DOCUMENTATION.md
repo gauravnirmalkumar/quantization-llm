@@ -242,6 +242,308 @@ python convert.py models/Llama-3.2-1B-Instruct
 - Larger models benefit more from quantization (better compression ratios)
 - K-quant methods intelligently preserve quality in critical layers
 
+## Detailed Quantization Algorithms & Bit-Level Operations
+
+This section explains the exact mathematical operations and bit manipulations used in each quantization method.
+
+### 1. General Inference Flow: Quantized Matrix Multiplication
+
+This diagram shows how input prompts (Float32/16) are multiplied against compressed model weights (Int4/8) during inference:
+
+```mermaid
+graph TD
+    subgraph "Input Processing"
+        A[Input Vector x<br/>Float32/Float16] -->|Activation| B(Float Buffer in VRAM)
+    end
+
+    subgraph "GGUF Model Weights in Memory"
+        C[Quantized Superblock<br/>256 weights]
+        D[Scale Factors<br/>Float16/6-bit]
+        E[Compressed Quants<br/>Int4/Int8]
+        C --> D
+        C --> E
+    end
+
+    subgraph "De-Quantization Kernel"
+        F[Load Block of 32 weights]
+        D -->|Extract| G[Apply Scale Factor 'd']
+        E -->|Bit Mask & Shift| H[Extract Integers 'q']
+        
+        G --> I["Formula: W = d × q + min"]
+        H --> I
+    end
+
+    subgraph "Dot Product Operation"
+        B --> J{FMA Operation<br/>Fused Multiply-Add}
+        I -->|Reconstructed Float| J
+        J -->|Accumulate| K[Result Vector y]
+    end
+
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style J fill:#ff9,stroke:#333,stroke-width:2px
+    style I fill:#9f9,stroke:#333,stroke-width:2px
+```
+
+### 2. Q8_0 Algorithm (8-Bit Quantization)
+
+Used in: `Llama-3.2-1B-Instruct-Q8_0`, `Llama-3.2-3B-Instruct-Q8_0`, `Meta-Llama-3.1-8B-Instruct-Q8_0`
+
+**Block Structure**: 32 weights per block
+
+```mermaid
+graph LR
+    subgraph "Q8_0 Memory Block Layout - 34 Bytes"
+        A["Scale Delta<br/>2 bytes<br/>Float16"]
+        B["Weight 0<br/>1 byte<br/>Int8"]
+        C["Weight 1<br/>1 byte<br/>Int8"]
+        D["...<br/>30 more<br/>Int8"]
+        E["Weight 31<br/>1 byte<br/>Int8"]
+    end
+
+    subgraph "Bit Interpretation"
+        A -->|Read as Float16| F["Scale Factor 'd'<br/>Range: ±65504"]
+        B -->|Read as Int8| G["Quantized Value 'q0'<br/>Range: -128 to 127"]
+        C -->|Read as Int8| H["Quantized Value 'q1'<br/>Range: -128 to 127"]
+    end
+
+    subgraph "Reconstruction Formula"
+        F --> I["w[i] = d × q[i]"]
+        G --> I
+        H --> I
+        I --> J["Original Weight<br/>Approximation"]
+    end
+
+    style A fill:#ff9900,color:black,stroke:#cc7700,stroke-width:2px
+    style B fill:#66ccff,color:black,stroke:#3399cc,stroke-width:2px
+    style C fill:#66ccff,color:black,stroke:#3399cc,stroke-width:2px
+    style D fill:#66ccff,color:black,stroke:#3399cc,stroke-width:2px
+    style E fill:#66ccff,color:black,stroke:#3399cc,stroke-width:2px
+    style I fill:#90ee90,color:black,stroke:#228b22,stroke-width:2px
+```
+
+**Mathematical Process:**
+1. **Quantization** (during model creation):
+   ```
+   For each block of 32 weights:
+   d = max(abs(weights)) / 127
+   q[i] = round(weights[i] / d)
+   ```
+
+2. **De-quantization** (during inference):
+   ```
+   weights[i] = d × q[i]
+   ```
+
+### 3. K-Quants Superblock Architecture
+
+Used in: Q4_K_M, Q6_K, Q3_K models
+
+**Key Innovation**: Hierarchical scaling with superblocks of 256 weights (8 blocks of 32)
+
+```mermaid
+classDiagram
+    class SuperBlock_256 {
+        +Float16 super_scale
+        +Float16 super_min
+        +Block[8] sub_blocks
+        +get_weight(index) float
+    }
+    
+    class SubBlock_32 {
+        +6bit local_scale
+        +4bit local_min
+        +uint8[] quants
+        +dequantize() float[]
+    }
+    
+    class QuantizationParams {
+        Block Size: 32
+        SuperBlock Size: 256
+        Scales: Hierarchical
+        Min Values: Per superblock
+    }
+    
+    SuperBlock_256 *-- "8" SubBlock_32 : Contains
+    SubBlock_32 --> QuantizationParams : Uses
+    
+    note for SuperBlock_256 "Total: 256 weights\nEnables better compression\nwith minimal quality loss"
+```
+
+### 4. Q4_K_M Algorithm (4-Bit Medium) - RECOMMENDED
+
+Used in: `Llama-3.2-1B-Instruct-Q4_K_M`, `Llama-3.2-3B-Instruct-Q4_K_M`, `Meta-Llama-3.1-8B-Instruct-Q4_K_M`
+
+**Bit Packing**: 2 weights per byte (4 bits each)
+
+```mermaid
+graph TB
+    subgraph "Single Byte Storage - 8 bits"
+        A["Byte Value: 0xA7<br/>Binary: 1010 0111"]
+    end
+
+    subgraph "Bitwise Extraction"
+        A -->|"x & 0x0F<br/>(AND with 00001111)"| B["Lower 4 Bits: 0111<br/>Weight i = 7"]
+        A -->|"x >> 4<br/>(Right shift 4)"| C["Upper 4 Bits: 1010<br/>Weight i+1 = 10"]
+    end
+
+    subgraph "Scale Application"
+        D["Super Scale<br/>Float16"]
+        E["Block Scale<br/>6-bit packed"]
+        F["Min Value<br/>4-bit packed"]
+        
+        B --> G["Combine Scales"]
+        C --> G
+        D --> G
+        E --> G
+        F --> G
+        
+        G --> H["w[i] = super_scale × <br/>block_scale × q[i] + min"]
+    end
+
+    style A fill:#764ba2,color:white,stroke:#4c2f7a,stroke-width:2px
+    style B fill:#667eea,color:white,stroke:#4c51bf,stroke-width:2px
+    style C fill:#667eea,color:white,stroke:#4c51bf,stroke-width:2px
+    style H fill:#90ee90,color:black,stroke:#228b22,stroke-width:2px
+```
+
+**Memory Layout for Q4_K_M Superblock (256 weights)**:
+- Super scale: 2 bytes (Float16)
+- Super min: 2 bytes (Float16)
+- 8 block scales: 6 bits each = 6 bytes
+- 8 block mins: 4 bits each = 4 bytes
+- 256 weights: 4 bits each = 128 bytes
+- **Total: ~142 bytes** (vs 512 bytes for FP16)
+
+### 5. Q6_K Algorithm (6-Bit Quantization)
+
+Used in: `Llama-3.2-1B-Instruct-Q6_K`, `Llama-3.2-3B-Instruct-Q6_K`, `Meta-Llama-3.1-8B-Instruct-Q6_K`
+
+**Challenge**: 6 bits don't fit cleanly into 8-bit bytes
+**Solution**: Split storage - 4 lower bits + 2 upper bits
+
+```mermaid
+graph TD
+    subgraph "Q6_K Split Storage"
+        A["Array 'ql'<br/>Lower 4 bits<br/>per weight"]
+        B["Array 'qh'<br/>Upper 2 bits<br/>packed 4 per byte"]
+    end
+
+    subgraph "Reconstruction for Weight i"
+        A -->|"Get Byte i"| C["Low Nibble<br/>4 bits: xxxx"]
+        B -->|"Extract 2 bits"| D["High Bits<br/>2 bits: yy"]
+        
+        C --> E["Bitwise OR"]
+        D --> E
+        
+        E -->|"Result"| F["6-bit Value<br/>yyxxxx"]
+    end
+    
+    subgraph "Bitwise Operation"
+        G["value = (ql[i] & 0xF) | <br/>((qh[i/4] >> ((i%4)*2)) & 0x3) << 4"]
+    end
+    
+    F --> G
+    G --> H["Apply scales<br/>w = d × value + min"]
+
+    style A fill:#28a745,color:white,stroke:#1e7e34,stroke-width:2px
+    style B fill:#17a2b8,color:white,stroke:#117a8b,stroke-width:2px
+    style G fill:#f8f9fa,color:black,stroke:#333,stroke-width:2px
+    style H fill:#90ee90,color:black,stroke:#228b22,stroke-width:2px
+```
+
+**Bit Extraction Example**:
+```
+Byte in ql: 0b00001101 (13)
+Byte in qh: 0b11001001
+For weight 0: Extract bits 0-1 from qh → 01
+Result: 0b010000 | 0b001101 = 0b011101 (29)
+```
+
+### 6. Q3_K Algorithm (3-Bit Quantization)
+
+Used in: `Llama-3.2-1B-Instruct-Q3_K_L`, `Llama-3.2-3B-Instruct-Q3_K_L`, `Meta-Llama-3.1-8B-Instruct-Q3_K_M`
+
+**Most Aggressive**: 3 bits per weight, with selective precision for critical layers
+
+```mermaid
+graph TB
+    subgraph "3-Bit Packing Strategy"
+        A["8 weights = 24 bits<br/>= 3 bytes"]
+    end
+    
+    subgraph "Byte Distribution"
+        A --> B["Byte 0: w0[2:0] w1[2:0] w2[1:0]"]
+        A --> C["Byte 1: w2[2] w3[2:0] w4[2:0] w5[0]"]
+        A --> D["Byte 2: w5[2:1] w6[2:0] w7[2:0]"]
+    end
+    
+    subgraph "Layer-Specific Precision"
+        E["Embedding Layers<br/>3-bit quantization"]
+        F["FFN Layers<br/>4-bit quantization"]
+        G["Attention Layers<br/>5-bit quantization"]
+    end
+    
+    B --> H["Complex bit masking<br/>and shifting required"]
+    C --> H
+    D --> H
+    
+    H --> I["Selective precision<br/>preserves quality"]
+    E --> I
+    F --> I
+    G --> I
+
+    style A fill:#ffaaa5,color:black,stroke:#e03131,stroke-width:2px
+    style I fill:#90ee90,color:black,stroke:#228b22,stroke-width:2px
+```
+
+### 7. Inference Pipeline: CPU/GPU Processing
+
+This sequence shows how quantized weights are processed during actual inference:
+
+```mermaid
+sequenceDiagram
+    participant CPU as CPU Registers
+    participant L1 as L1 Cache
+    participant RAM as RAM/VRAM<br/>GGUF Model
+    
+    Note over CPU,RAM: Processing one Superblock (256 weights)
+    
+    CPU->>RAM: Fetch Superblock Scales (d, min)
+    RAM-->>L1: Load Scales (Float16)
+    
+    CPU->>RAM: Fetch Quantized Bytes (q)
+    RAM-->>L1: Load Compressed Weights
+    
+    rect rgb(200, 220, 255)
+        Note over CPU,L1: SIMD Parallel Processing<br/>(AVX2/NEON/Metal)
+        loop For each block of 32
+            L1->>CPU: Load 32 quants
+            CPU->>CPU: Bitwise Unpack<br/>(Shift & Mask operations)
+            CPU->>CPU: Convert Int → Float<br/>(SIMD vectorized)
+            CPU->>CPU: Multiply by Scales<br/>(d × q + min)
+            CPU->>CPU: FMA with Input<br/>(y += w × x)
+        end
+    end
+    
+    CPU->>CPU: Accumulate Partial Sums
+    CPU->>CPU: Final Result Vector
+```
+
+### Performance Characteristics
+
+| Method | Bits/Weight | Dequant Ops/Weight | SIMD Efficiency | Memory Bandwidth |
+|--------|-------------|-------------------|-----------------|------------------|
+| **Q8_0** | 8 | 1 multiply | Excellent | High |
+| **Q6_K** | 6 | 2 shifts + 1 OR + 1 multiply | Good | Medium |
+| **Q4_K_M** | 4 | 1 shift + 1 AND + 2 multiplies | Very Good | Low |
+| **Q3_K** | 3 | 3 shifts + 2 ANDs + 2 multiplies | Good | Very Low |
+
+**Key Takeaways:**
+- Lower bit quantization = more bit manipulation overhead
+- K-quants trade computation for memory savings
+- SIMD operations process 8-32 weights simultaneously
+- Metal/CUDA kernels optimize these operations for GPU
+
 ## System Architecture
 
 ```mermaid
