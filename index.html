@@ -440,21 +440,65 @@
                             <th>Model Name</th>
                             <th>Size</th>
                             <th>Quant</th>
-                            <th>Speed (T/s)</th>
-                            <th>Latency (ms)</th>
-                            <th>Memory (MB)</th>
-                            <th>Load Time (s)</th>
-                            <th>PP Speed (T/s)</th>
-                            <th>Perplexity</th>
+                            <th title="Accuracy: Percentage of correct answers">✓ Accuracy</th>
+                            <th title="Generation Speed: Tokens per second">Speed (T/s)</th>
+                            <th title="Time to First Token">Latency (ms)</th>
+                            <th title="RAM Usage">Memory (MB)</th>
+                            <th title="Model Load Time">Load (s)</th>
+                            <th title="Prompt Processing Speed">PP Speed (T/s)</th>
+                            <th title="Quality Metric: Lower is better">Perplexity</th>
+                            <th title="Average tokens per response">Avg Tokens</th>
                         </tr>
                     </thead>
                     <tbody id="resultsBody">
                         <tr>
-                            <td colspan="9" style="text-align: center; padding: 30px; color: #999;">No results yet...
+                            <td colspan="11" style="text-align: center; padding: 30px; color: #999;">No results yet...
                                 Benchmark will start soon.</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Metrics Explanation -->
+        <div class="card" style="background: #f8f9fa;">
+            <h2>📖 Metrics Explained</h2>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; font-size: 0.9em;">
+                <div>
+                    <strong style="color: #667eea;">✓ Accuracy</strong>
+                    <p style="margin: 5px 0; color: #666;">Percentage of test questions answered correctly (out of 5
+                        questions)</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Speed (T/s)</strong>
+                    <p style="margin: 5px 0; color: #666;">Average tokens generated per second. Higher is faster.</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Latency (ms)</strong>
+                    <p style="margin: 5px 0; color: #666;">Time to generate first token. Lower is more responsive.</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Memory (MB)</strong>
+                    <p style="margin: 5px 0; color: #666;">RAM used by the model. Lower uses less resources.</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Load Time (s)</strong>
+                    <p style="margin: 5px 0; color: #666;">Time to load model into memory. Lower is better.</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">PP Speed (T/s)</strong>
+                    <p style="margin: 5px 0; color: #666;">Prompt Processing Speed - how fast the model reads input.</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Perplexity</strong>
+                    <p style="margin: 5px 0; color: #666;">Quality metric - how well the model predicts text. Lower is
+                        better quality.</p>
+                </div>
+                <div>
+                    <strong style="color: #667eea;">Avg Tokens</strong>
+                    <p style="margin: 5px 0; color: #666;">Average number of tokens generated per response.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -691,6 +735,7 @@
                                 const speedClass = r.speed > 100 ? 'metric-good' : r.speed > 50 ? 'metric-warning' : 'metric-bad';
                                 const latencyClass = r.latency_ms < 100 ? 'metric-good' : r.latency_ms < 200 ? 'metric-warning' : 'metric-bad';
                                 const memClass = r.memory_mb < 2000 ? 'metric-good' : r.memory_mb < 4000 ? 'metric-warning' : 'metric-bad';
+                                const accuracyClass = r.accuracy >= 80 ? 'metric-good' : r.accuracy >= 60 ? 'metric-warning' : 'metric-bad';
 
                                 const modelId = r.name.replace(/[^a-zA-Z0-9]/g, '_');
                                 const qaDetails = r.test_responses ? r.test_responses.map(qa => {
@@ -710,6 +755,21 @@
                                     </div>
                                 `}).join('') : 'No detailed responses available';
 
+                                // Add summary stats in expandable section
+                                const summaryStats = r.accuracy !== undefined ? `
+                                    <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                                        <h4 style="margin-top: 0;">Performance Summary</h4>
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                            <div><strong>Accuracy:</strong> ${r.accuracy}% (${r.correct_answers}/${r.total_questions})</div>
+                                            <div><strong>Total Tokens:</strong> ${r.total_tokens_generated}</div>
+                                            <div><strong>Total Time:</strong> ${r.total_generation_time}s</div>
+                                            <div><strong>Avg Tokens/Response:</strong> ${r.avg_tokens_per_response}</div>
+                                            <div><strong>Min Response Time:</strong> ${r.min_response_time}s</div>
+                                            <div><strong>Max Response Time:</strong> ${r.max_response_time}s</div>
+                                        </div>
+                                    </div>
+                                ` : '';
+
                                 const isExpanded = expandedRows.has(modelId);
 
                                 return `
@@ -717,17 +777,21 @@
                                     <td><strong>${r.name}</strong></td>
                                     <td>${r.params}</td>
                                     <td>${r.quant}</td>
+                                    <td class="${accuracyClass}">${r.accuracy !== undefined ? r.accuracy + '%' : 'N/A'}</td>
                                     <td class="${speedClass}">${r.speed || 'N/A'}</td>
                                     <td class="${latencyClass}">${r.latency_ms || 'N/A'}</td>
                                     <td class="${memClass}">${r.memory_mb || 'N/A'}</td>
                                     <td>${r.load_time_s || 'N/A'}</td>
                                     <td>${r.pp_speed || 'N/A'}</td>
                                     <td class="metric-good">${r.perplexity || 'N/A'}</td>
+                                    <td>${r.avg_tokens_per_response || 'N/A'}</td>
                                 </tr>
                                 <tr id="expand-${modelId}" class="expandable-row ${isExpanded ? 'show' : ''}">
-                                    <td colspan="9">
+                                    <td colspan="11">
                                         <div class="expandable-content">
-                                            <h3>All Test Responses for ${r.name}</h3>
+                                            <h3>Detailed Results for ${r.name}</h3>
+                                            ${summaryStats}
+                                            <h4>All Test Responses</h4>
                                             ${qaDetails}
                                         </div>
                                     </td>

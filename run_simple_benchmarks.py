@@ -145,9 +145,39 @@ def main():
                     "time_s": round(elapsed, 2)
                 })
 
+            # Verify answers and calculate accuracy
+            def verify_answer(category, response):
+                """Verify if the answer is correct"""
+                response_lower = response.lower()
+                
+                if category == "Math - Basic":
+                    return '345' in response or 'three hundred forty-five' in response_lower
+                elif category == "Math - Word Problem":
+                    return '60' in response and ('km/h' in response_lower or 'kmh' in response_lower or 'kph' in response_lower)
+                elif category == "Coding":
+                    return 'def ' in response_lower or 'function' in response_lower or 'factorial' in response_lower
+                elif category == "Explanation":
+                    key_terms = ['qubit', 'superposition', 'quantum', 'entangle', 'particle', 'probability', 'bit']
+                    return sum(1 for term in key_terms if term in response_lower) >= 3
+                elif category == "Reasoning":
+                    return 'cannot' in response_lower or 'not necessarily' in response_lower or 'fallacy' in response_lower
+                return False
+            
+            # Calculate accuracy
+            correct_count = sum(1 for qa in all_responses if verify_answer(qa['category'], qa['response']))
+            accuracy = (correct_count / len(all_responses) * 100) if all_responses else 0
+            
+            # Add verification status to responses
+            for qa in all_responses:
+                qa['verified'] = verify_answer(qa['category'], qa['response'])
             
             # Calculate average speed
             avg_speed = total_tokens / total_time if total_time > 0 else 0
+            
+            # Calculate tokens per second for each response
+            avg_tokens_per_response = total_tokens / len(all_responses) if all_responses else 0
+            min_time = min(qa['time_s'] for qa in all_responses) if all_responses else 0
+            max_time = max(qa['time_s'] for qa in all_responses) if all_responses else 0
             
             # Test latency (Time to First Token)
             manager.update_status(task="Measuring Latency...", progress=85)
@@ -193,6 +223,15 @@ def main():
                 "load_time_s": round(load_time, 2),
                 "pp_speed": round(pp_speed, 2),
                 "test_responses": all_responses,
+                # New metrics
+                "accuracy": round(accuracy, 1),
+                "correct_answers": correct_count,
+                "total_questions": len(all_responses),
+                "avg_tokens_per_response": round(avg_tokens_per_response, 1),
+                "min_response_time": round(min_time, 2),
+                "max_response_time": round(max_time, 2),
+                "total_tokens_generated": total_tokens,
+                "total_generation_time": round(total_time, 2),
                 "sample_prompt": all_responses[0]['prompt'],
                 "sample_response": all_responses[0]['response']
             }
