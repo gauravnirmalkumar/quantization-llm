@@ -18,6 +18,11 @@ def get_memory_usage():
     return process.memory_info().rss / 1024 / 1024
 
 def main():
+    # Clear old benchmark data
+    if os.path.exists("benchmark_status.json"):
+        os.remove("benchmark_status.json")
+        print("Cleared old benchmark data")
+    
     manager = BenchmarkManager()
     manager.log("Starting Enhanced Benchmark Suite with Multiple Test Questions...")
     
