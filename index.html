@@ -24,176 +24,252 @@
             margin: 0 auto;
         }
 
+        /* Header */
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
         .card {
             background: white;
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
         }
 
-        h1 {
+        /* Current Model Card */
+        .current-model-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
             margin-bottom: 30px;
-            font-size: 2.5em;
         }
 
-        h2 {
-            margin-bottom: 16px;
-            color: #333;
-            font-size: 1.3em;
-        }
-
-        .status-bar {
+        .model-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            padding: 16px;
-            background: #f8f9fa;
-            border-radius: 12px;
         }
 
-        .model-name {
-            font-size: 1.5em;
+        .model-name-large {
+            font-size: 2.5em;
             font-weight: bold;
-            color: #667eea;
         }
 
-        .task-name {
-            color: #764ba2;
-            font-style: italic;
-            margin-top: 4px;
+        .model-status {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        .progress-text {
+            font-size: 3em;
+            font-weight: bold;
         }
 
         .progress-outer {
             width: 100%;
-            height: 30px;
-            background: #e9ecef;
-            border-radius: 15px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
             overflow: hidden;
+            margin-top: 15px;
         }
 
         .progress-inner {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            transition: width 0.5s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #667eea;
             font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 12px 0;
+        }
+
+        .metric-unit {
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        /* Live Token Stream */
+        .token-stream {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .token-stream::before {
+            content: '▶ LIVE TOKEN STREAM';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 0.8em;
+            color: #ff6b6b;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0.3;
+            }
+        }
+
+        .token {
+            display: inline;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         /* Q&A Display */
         .qa-container {
-            max-height: 600px;
+            max-height: 500px;
             overflow-y: auto;
         }
 
         .qa-item {
             background: #f8f9fa;
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 5px solid #667eea;
         }
 
         .qa-category {
             display: inline-block;
             background: #667eea;
             color: white;
-            padding: 4px 12px;
-            border-radius: 6px;
+            padding: 6px 16px;
+            border-radius: 20px;
             font-size: 0.85em;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .qa-prompt {
             font-weight: bold;
             color: #333;
-            margin: 8px 0;
+            margin: 12px 0;
+            font-size: 1.1em;
         }
 
         .qa-response {
             color: #555;
-            line-height: 1.6;
+            line-height: 1.8;
             white-space: pre-wrap;
             background: white;
-            padding: 12px;
+            padding: 16px;
             border-radius: 8px;
-            margin-top: 8px;
+            margin-top: 12px;
         }
 
         .qa-meta {
             font-size: 0.85em;
             color: #999;
-            margin-top: 8px;
+            margin-top: 12px;
+            font-style: italic;
         }
 
-        /* Metrics Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .metric-card {
-            background: #f8f9fa;
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .metric-value {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-            margin: 8px 0;
-        }
-
-        .metric-label {
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .logs {
-            background: #1e1e1e;
-            color: #00ff00;
-            padding: 16px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        .log-line {
-            margin-bottom: 4px;
-        }
-
+        /* Results Table */
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         th,
         td {
-            padding: 10px 8px;
+            padding: 14px 12px;
             text-align: left;
             border-bottom: 1px solid #dee2e6;
         }
 
         th {
-            background: #f8f9fa;
-            font-weight: 600;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-weight: 700;
             color: #495057;
             position: sticky;
             top: 0;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
         }
 
         tr:hover {
@@ -202,6 +278,7 @@
 
         tr {
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .metric-good {
@@ -229,12 +306,29 @@
         }
 
         .expandable-content {
-            padding: 20px;
+            padding: 30px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: #667eea;
+            border-radius: 2px;
         }
 
         .grid-2 {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
             gap: 20px;
         }
 
@@ -243,20 +337,35 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .info-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>🚀 Enhanced LLM Benchmark Dashboard</h1>
+        <header>
+            <h1>🚀 LLM Quantization Benchmark</h1>
+            <p class="subtitle">Real-time Performance Testing of 12 Quantized Models</p>
+        </header>
 
-        <div class="card">
-            <div class="status-bar">
+        <!-- Current Model Status -->
+        <div class="current-model-card">
+            <div class="model-header">
                 <div>
-                    <div class="model-name" id="modelName">Initializing...</div>
-                    <div class="task-name" id="taskName">Loading...</div>
+                    <div style="font-size: 0.9em; opacity: 0.8; margin-bottom: 8px;">CURRENTLY TESTING</div>
+                    <div class="model-name-large" id="currentModel">Initializing...</div>
+                    <div class="model-status" id="currentStatus">Loading...</div>
                 </div>
-                <div id="progressText" style="font-size: 2em; font-weight: bold; color: #667eea;">0%</div>
+                <div class="progress-text" id="progressPercent">0%</div>
             </div>
             <div class="progress-outer">
                 <div class="progress-inner" id="progressBar" style="width: 0%;">
@@ -265,68 +374,77 @@
             </div>
         </div>
 
-        <div class="grid-2">
-            <div class="card">
-                <h2>💬 Model Responses (All Test Questions)</h2>
-                <div class="qa-container" id="qaContainer">
-                    <div style="text-align: center; color: #999; padding: 40px;">
-                        Waiting for model to start...
-                    </div>
+        <!-- Live Metrics -->
+        <div class="card">
+            <h2>📊 Live Performance Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">⚡ Speed</div>
+                    <div class="metric-value" id="metricSpeed">--</div>
+                    <div class="metric-unit">tokens/second</div>
                 </div>
-            </div>
-
-            <div class="card">
-                <h2>📊 Current Model Metrics</h2>
-                <div class="metrics-grid" id="metricsGrid">
-                    <div class="metric-card">
-                        <div class="metric-label">Speed</div>
-                        <div class="metric-value" id="metricSpeed">--</div>
-                        <div class="metric-label">tokens/sec</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Latency</div>
-                        <div class="metric-value" id="metricLatency">--</div>
-                        <div class="metric-label">ms</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Memory</div>
-                        <div class="metric-value" id="metricMemory">--</div>
-                        <div class="metric-label">MB</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Load Time</div>
-                        <div class="metric-value" id="metricLoadTime">--</div>
-                        <div class="metric-label">seconds</div>
-                    </div>
+                <div class="metric-card">
+                    <div class="metric-label">⏱️ Latency</div>
+                    <div class="metric-value" id="metricLatency">--</div>
+                    <div class="metric-unit">milliseconds</div>
                 </div>
-
-                <h2 style="margin-top: 20px;">📋 Live Logs</h2>
-                <div class="logs" id="logsContainer">
-                    <div class="log-line">Waiting for data...</div>
+                <div class="metric-card">
+                    <div class="metric-label">💾 Memory</div>
+                    <div class="metric-value" id="metricMemory">--</div>
+                    <div class="metric-unit">megabytes</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">🔄 Load Time</div>
+                    <div class="metric-value" id="metricLoadTime">--</div>
+                    <div class="metric-unit">seconds</div>
                 </div>
             </div>
         </div>
 
+        <div class="grid-2">
+            <!-- Live Token Stream -->
+            <div class="card">
+                <h2>💬 Live Token Generation</h2>
+                <div class="token-stream" id="tokenStream">
+                    <div style="text-align: center; color: #666; padding: 60px 20px;">
+                        Waiting for model to start generating...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Responses -->
+            <div class="card">
+                <h2>📝 Test Responses <span class="info-badge">5 Questions</span></h2>
+                <div class="qa-container" id="qaContainer">
+                    <div style="text-align: center; color: #999; padding: 40px 20px;">
+                        Waiting for test results...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Table -->
         <div class="card">
-            <h2>📊 Complete Benchmark Results (Click row to see all Q&A)</h2>
+            <h2>📈 Complete Benchmark Results <span class="info-badge">Click row to expand</span></h2>
             <div style="overflow-x: auto;">
                 <table id="resultsTable">
                     <thead>
                         <tr>
-                            <th>Model</th>
+                            <th>Model Name</th>
                             <th>Size</th>
                             <th>Quant</th>
-                            <th>Speed<br>(T/s)</th>
-                            <th>Latency<br>(ms)</th>
-                            <th>Memory<br>(MB)</th>
-                            <th>Load Time<br>(s)</th>
-                            <th>PP Speed<br>(T/s)</th>
+                            <th>Speed (T/s)</th>
+                            <th>Latency (ms)</th>
+                            <th>Memory (MB)</th>
+                            <th>Load Time (s)</th>
+                            <th>PP Speed (T/s)</th>
                             <th>Perplexity</th>
                         </tr>
                     </thead>
                     <tbody id="resultsBody">
                         <tr>
-                            <td colspan="9" style="text-align: center; padding: 20px;">No results yet...</td>
+                            <td colspan="9" style="text-align: center; padding: 30px; color: #999;">No results yet...
+                                Benchmark will start soon.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -337,6 +455,7 @@
     <script>
         let lastResult = null;
         let expandedRows = new Set();
+        let lastLogCount = 0;
 
         function toggleRow(modelName) {
             const expandRow = document.getElementById('expand-' + modelName);
@@ -345,24 +464,48 @@
             }
         }
 
+        function updateTokenStream(logs) {
+            // Show last few log entries as live token stream
+            const tokenStream = document.getElementById('tokenStream');
+            const relevantLogs = logs.filter(log =>
+                log.includes('RESPONSE:') || log.includes('PROMPT:') || log.includes('Q[')
+            ).slice(0, 10);
+
+            if (relevantLogs.length > 0 && relevantLogs.length !== lastLogCount) {
+                tokenStream.innerHTML = relevantLogs.map(log => {
+                    if (log.includes('PROMPT:') || log.includes('Q[')) {
+                        return `<div style="color: #ffa500; margin: 8px 0;">${log}</div>`;
+                    } else {
+                        return `<div style="color: #00ff00; margin: 8px 0;">${log}</div>`;
+                    }
+                }).join('');
+                tokenStream.scrollTop = tokenStream.scrollHeight;
+                lastLogCount = relevantLogs.length;
+            }
+        }
+
         function updateDashboard() {
             fetch('benchmark_status.json?_=' + Date.now())
                 .then(res => res.json())
                 .then(data => {
-                    // Update model info
-                    document.getElementById('modelName').textContent = data.active_model || 'Idle';
-                    document.getElementById('taskName').textContent = data.task || 'Waiting...';
+                    // Update current model info
+                    document.getElementById('currentModel').textContent = data.active_model || 'Idle';
+                    document.getElementById('currentStatus').textContent = data.task || 'Waiting...';
 
                     // Update progress
                     const progress = data.progress || 0;
                     document.getElementById('progressBar').style.width = progress + '%';
                     document.getElementById('progressLabel').textContent = progress + '%';
-                    document.getElementById('progressText').textContent = progress + '%';
+                    document.getElementById('progressPercent').textContent = progress + '%';
+
+                    // Update token stream from logs
+                    if (data.logs && data.logs.length > 0) {
+                        updateTokenStream(data.logs);
+                    }
 
                     // Update Q&A Display
                     if (data.results && data.results.length > 0) {
                         const latestResult = data.results[data.results.length - 1];
-                        // Always update if there are test_responses, don't compare with lastResult
                         if (latestResult.test_responses && latestResult.test_responses.length > 0) {
                             const qaContainer = document.getElementById('qaContainer');
                             qaContainer.innerHTML = latestResult.test_responses.map(qa => `
@@ -370,7 +513,7 @@
                                     <span class="qa-category">${qa.category}</span>
                                     <div class="qa-prompt">Q: ${qa.prompt}</div>
                                     <div class="qa-response">${qa.response}</div>
-                                    <div class="qa-meta">${qa.tokens} tokens in ${qa.time_s}s</div>
+                                    <div class="qa-meta">Generated ${qa.tokens} tokens in ${qa.time_s}s</div>
                                 </div>
                             `).join('');
                             qaContainer.scrollTop = 0;
@@ -383,15 +526,6 @@
 
                             lastResult = latestResult;
                         }
-                    }
-
-                    // Update logs
-                    const logsContainer = document.getElementById('logsContainer');
-                    if (data.logs && data.logs.length > 0) {
-                        logsContainer.innerHTML = data.logs.slice(0, 25).map(log =>
-                            `<div class="log-line">${log}</div>`
-                        ).join('');
-                        logsContainer.scrollTop = logsContainer.scrollHeight;
                     }
 
                     // Update results table
@@ -408,7 +542,7 @@
                                     <span class="qa-category">${qa.category}</span>
                                     <div class="qa-prompt">Q: ${qa.prompt}</div>
                                     <div class="qa-response">${qa.response}</div>
-                                    <div class="qa-meta">${qa.tokens} tokens in ${qa.time_s}s</div>
+                                    <div class="qa-meta">Generated ${qa.tokens} tokens in ${qa.time_s}s</div>
                                 </div>
                             `).join('') : 'No detailed responses available';
 

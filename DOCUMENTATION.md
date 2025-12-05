@@ -62,6 +62,94 @@ Quantization reduces model size by representing weights with fewer bits, trading
 - **K_M (Medium)**: Balanced approach
 - **K_L (Large)**: More bits for important layers
 
+## Model Quantization Pipeline
+
+This diagram shows how the original models were quantized before being tested in this project:
+
+```mermaid
+graph LR
+    subgraph "Original Models"
+        A1[Llama 3.2 1B<br/>FP16 ~2.8GB]
+        A2[Llama 3.2 3B<br/>FP16 ~6.5GB]
+        A3[Llama 3.1 8B<br/>FP16 ~16GB]
+    end
+    
+    subgraph "Quantization Tools"
+        B[llama.cpp<br/>quantize tool]
+    end
+    
+    subgraph "Q8_0 Models"
+        C1[1B-Q8_0<br/>~1.4GB]
+        C2[3B-Q8_0<br/>~3.3GB]
+        C3[8B-Q8_0<br/>~7.3GB]
+    end
+    
+    subgraph "Q6_K Models"
+        D1[1B-Q6_K<br/>~1.1GB]
+        D2[3B-Q6_K<br/>~2.7GB]
+        D3[8B-Q6_K<br/>~5.8GB]
+    end
+    
+    subgraph "Q4_K_M Models"
+        E1[1B-Q4_K_M<br/>~770MB]
+        E2[3B-Q4_K_M<br/>~2.1GB]
+        E3[8B-Q4_K_M<br/>~4.3GB]
+    end
+    
+    subgraph "Q3_K Models"
+        F1[1B-Q3_K_L<br/>~700MB]
+        F2[3B-Q3_K_L<br/>~1.9GB]
+        F3[8B-Q3_K_M<br/>~3.7GB]
+    end
+    
+    A1 -->|8-bit quant| B
+    A2 -->|8-bit quant| B
+    A3 -->|8-bit quant| B
+    B --> C1
+    B --> C2
+    B --> C3
+    
+    A1 -->|6-bit K-quant| B
+    A2 -->|6-bit K-quant| B
+    A3 -->|6-bit K-quant| B
+    B --> D1
+    B --> D2
+    B --> D3
+    
+    A1 -->|4-bit K-quant| B
+    A2 -->|4-bit K-quant| B
+    A3 -->|4-bit K-quant| B
+    B --> E1
+    B --> E2
+    B --> E3
+    
+    A1 -->|3-bit K-quant| B
+    A2 -->|3-bit K-quant| B
+    A3 -->|3-bit K-quant| B
+    B --> F1
+    B --> F2
+    B --> F3
+    
+    subgraph "This Benchmark Project"
+        G[Tests All 12<br/>Quantized Models]
+    end
+    
+    C1 & C2 & C3 & D1 & D2 & D3 & E1 & E2 & E3 & F1 & F2 & F3 --> G
+    
+    style A1 fill:#ff6b6b,color:#fff
+    style A2 fill:#ff6b6b,color:#fff
+    style A3 fill:#ff6b6b,color:#fff
+    style B fill:#4ecdc4,color:#fff
+    style G fill:#667eea,color:#fff
+```
+
+**Key Points:**
+- Original models are in FP16 (16-bit floating point)
+- Each model is quantized to 4 different precision levels
+- Total: 3 model sizes × 4 quantization types = 12 models tested
+- Quantization done using llama.cpp's quantize tool
+- This project benchmarks the quantized GGUF files
+
 ## System Architecture
 
 ```mermaid
