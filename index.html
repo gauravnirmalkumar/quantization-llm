@@ -465,22 +465,48 @@
         }
 
         function updateTokenStream(logs) {
-            // Show last few log entries as live token stream
+            // Show streaming tokens and prompts in real-time
             const tokenStream = document.getElementById('tokenStream');
-            const relevantLogs = logs.filter(log =>
-                log.includes('RESPONSE:') || log.includes('PROMPT:') || log.includes('Q[')
-            ).slice(0, 10);
 
-            if (relevantLogs.length > 0 && relevantLogs.length !== lastLogCount) {
-                tokenStream.innerHTML = relevantLogs.map(log => {
-                    if (log.includes('PROMPT:') || log.includes('Q[')) {
-                        return `<div style="color: #ffa500; margin: 8px 0;">${log}</div>`;
-                    } else {
-                        return `<div style="color: #00ff00; margin: 8px 0;">${log}</div>`;
+            // Filter for relevant streaming logs
+            const streamLogs = logs.filter(log =>
+                log.includes('STREAM:') ||
+                log.includes('Q[') ||
+                log.includes('Generating:') ||
+                log.includes('Testing:')
+            ).slice(-15); // Show last 15 entries
+
+            if (streamLogs.length > 0) {
+                let html = '';
+
+                for (const log of streamLogs) {
+                    if (log.includes('Q[')) {
+                        // Prompt display
+                        const match = log.match(/Q\[(.*?)\]: (.*)/);
+                        if (match) {
+                            html += `<div style="color: #ffa500; font-weight: bold; margin: 12px 0 4px 0; border-top: 1px solid #444; padding-top: 8px;">
+                                📝 ${match[1]}: ${match[2]}
+                            </div>`;
+                        }
+                    } else if (log.includes('STREAM:')) {
+                        // Streaming tokens
+                        const text = log.replace(/.*STREAM:\s*/, '');
+                        html += `<div style="color: #00ff00; margin: 2px 0; padding-left: 10px; line-height: 1.6;">
+                            ${text}
+                        </div>`;
+                    } else if (log.includes('Generating:')) {
+                        // Status update
+                        const match = log.match(/Generating: (.*?) \((\d+) tokens\)/);
+                        if (match) {
+                            html += `<div style="color: #00bfff; font-size: 0.9em; margin: 4px 0;">
+                                ⚡ Generating ${match[1]}: ${match[2]} tokens...
+                            </div>`;
+                        }
                     }
-                }).join('');
+                }
+
+                tokenStream.innerHTML = html || '<div style="text-align: center; color: #666; padding: 60px 20px;">Waiting for generation...</div>';
                 tokenStream.scrollTop = tokenStream.scrollHeight;
-                lastLogCount = relevantLogs.length;
             }
         }
 

@@ -96,31 +96,55 @@ def main():
                 progress = 20 + (test_idx * 15)
                 manager.update_status(task=f"Testing: {test['category']}...", progress=progress)
                 
+                # Stream tokens for real-time display
+                manager.log(f"Q[{test['category']}]: {test['prompt'][:60]}...")
+                
                 start_time = time.time()
-                output = llm.create_completion(
+                response_text = ""
+                token_count = 0
+                
+                # Create streaming generator
+                stream = llm.create_completion(
                     prompt=test['prompt'],
                     max_tokens=test['max_tokens'],
-                    temperature=0.7
+                    temperature=0.7,
+                    stream=True
                 )
+                
+                # Stream tokens and update status
+                for output in stream:
+                    if 'choices' in output and len(output['choices']) > 0:
+                        token = output['choices'][0].get('text', '')
+                        if token:
+                            response_text += token
+                            token_count += 1
+                            
+                            # Update streaming status every few tokens
+                            if token_count % 5 == 0:
+                                manager.update_status(
+                                    task=f"Generating: {test['category']} ({token_count} tokens)...",
+                                    progress=progress
+                                )
+                                # Log partial response for live display
+                                preview = response_text[-100:] if len(response_text) > 100 else response_text
+                                manager.log(f"STREAM: ...{preview}")
+                
                 elapsed = time.time() - start_time
                 
-                response_text = output['choices'][0]['text']
-                tokens = output['usage']['completion_tokens']
-                
-                total_tokens += tokens
+                total_tokens += token_count
                 total_time += elapsed
                 
-                # Log each Q&A
-                manager.log(f"Q[{test['category']}]: {test['prompt'][:60]}...")
+                # Log final response
                 manager.log(f"A: {response_text[:100]}...")
                 
                 all_responses.append({
                     "category": test['category'],
                     "prompt": test['prompt'],
                     "response": response_text,
-                    "tokens": tokens,
+                    "tokens": token_count,
                     "time_s": round(elapsed, 2)
                 })
+
             
             # Calculate average speed
             avg_speed = total_tokens / total_time if total_time > 0 else 0
