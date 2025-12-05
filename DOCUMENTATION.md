@@ -292,7 +292,7 @@ Used in: `Llama-3.2-1B-Instruct-Q8_0`, `Llama-3.2-3B-Instruct-Q8_0`, `Meta-Llama
 
 ```mermaid
 graph LR
-    subgraph "Q8_0 Memory Block Layout - 34 Bytes"
+    subgraph "Q8_0 Memory Block Layout"
         A["Scale Delta<br/>2 bytes<br/>Float16"]
         B["Weight 0<br/>1 byte<br/>Int8"]
         C["Weight 1<br/>1 byte<br/>Int8"]
