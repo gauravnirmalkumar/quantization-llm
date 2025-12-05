@@ -1,0 +1,42 @@
+# Model files (too large for git)
+*.gguf
+Llama-3.2-1B-Instruct-GGUF/
+Llama-3.2-3B-Instruct-GGUF/
+Meta-Llama-3.1-8B-Instruct-GGUF/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+*_server.log
+
+# Benchmark results (optional - uncomment if you want to track results)
+# benchmark_status.json
+# benchmark_summary.json
+# quality_results/
+# speed_results/
+
+# Datasets cache
+.cache/
+datasets/

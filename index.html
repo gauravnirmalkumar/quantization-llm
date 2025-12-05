@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Benchmark Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .model-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .task-name {
+            color: #764ba2;
+            font-style: italic;
+        }
+
+        .progress-outer {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logs {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-line {
+            margin-bottom: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .speed {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .quality {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🚀 Real-Time LLM Benchmark</h1>
+
+        <div class="card">
+            <div class="status-bar">
+                <div>
+                    <div class="model-name" id="modelName">Initializing...</div>
+                    <div class="task-name" id="taskName">Loading...</div>
+                </div>
+                <div id="progressText" style="font-size: 2em; font-weight: bold; color: #667eea;">0%</div>
+            </div>
+            <div class="progress-outer">
+                <div class="progress-inner" id="progressBar" style="width: 0%;">
+                    <span id="progressLabel">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 16px;">📋 Live Logs</h2>
+            <div class="logs" id="logsContainer">
+                <div class="log-line">Waiting for data...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 16px;">📊 Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Size</th>
+                        <th>Quantization</th>
+                        <th>Speed (T/s)</th>
+                        <th>Perplexity</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                    <tr>
+                        <td colspan="5" class="error">No results yet...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function updateDashboard() {
+            fetch('benchmark_status.json?_=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    // Update model info
+                    document.getElementById('modelName').textContent = data.active_model || 'Idle';
+                    document.getElementById('taskName').textContent = data.task || 'Waiting...';
+
+                    // Update progress
+                    const progress = data.progress || 0;
+                    document.getElementById('progressBar').style.width = progress + '%';
+                    document.getElementById('progressLabel').textContent = progress + '%';
+                    document.getElementById('progressText').textContent = progress + '%';
+
+                    // Update logs
+                    const logsContainer = document.getElementById('logsContainer');
+                    if (data.logs && data.logs.length > 0) {
+                        logsContainer.innerHTML = data.logs.map(log =>
+                            `<div class="log-line">${log}</div>`
+                        ).join('');
+                    }
+
+                    // Update results
+                    const tbody = document.getElementById('resultsBody');
+                    if (data.results && data.results.length > 0) {
+                        tbody.innerHTML = data.results.map(r => `
+                            <tr>
+                                <td>${r.name}</td>
+                                <td>${r.params}</td>
+                                <td>${r.quant}</td>
+                                <td class="speed">${r.speed}</td>
+                                <td class="quality">${r.perplexity}</td>
+                            </tr>
+                        `).join('');
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching data:', err);
+                    document.getElementById('modelName').textContent = 'Error loading data';
+                    document.getElementById('taskName').textContent = 'Check console for details';
+                });
+        }
+
+        // Update every second
+        setInterval(updateDashboard, 1000);
+        updateDashboard();
+    </script>
+</body>
+
+</html>

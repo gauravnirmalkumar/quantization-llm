@@ -1,0 +1,113 @@
+[
+  {
+    "name": "Llama-3.2-1B-Instruct-Q8_0",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q8_0",
+    "group": "A",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Llama-3.2-1B-Instruct-Q6_K",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q6_K",
+    "group": "A",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Llama-3.2-1B-Instruct-Q4_K_M",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q4_K_M",
+    "group": "A",
+    "quality": {},
+    "speed": {
+      "pp_tokens_per_sec": 2378.518787,
+      "tg_tokens_per_sec": 191.264544
+    }
+  },
+  {
+    "name": "Llama-3.2-1B-Instruct-Q3_K_L",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q3_K_L",
+    "group": "A",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Llama-3.2-3B-Instruct-Q8_0",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q8_0",
+    "group": "B",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Llama-3.2-3B-Instruct-Q6_K",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q6_K",
+    "group": "B",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Llama-3.2-3B-Instruct-Q4_K_M",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q4_K_M",
+    "group": "B",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Llama-3.2-3B-Instruct-Q3_K_L",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q3_K_L",
+    "group": "B",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Meta-Llama-3.1-8B-Instruct-Q8_0",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q8_0",
+    "group": "C",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Meta-Llama-3.1-8B-Instruct-Q6_K",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q6_K",
+    "group": "C",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Meta-Llama-3.1-8B-Instruct-Q4_K_M",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q4_K_M",
+    "group": "C",
+    "quality": {},
+    "speed": {}
+  },
+  {
+    "name": "Meta-Llama-3.1-8B-Instruct-Q3_K_M",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q3_K_M",
+    "group": "C",
+    "quality": {},
+    "speed": {}
+  }
+]

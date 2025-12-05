@@ -1,0 +1,120 @@
+{
+  "active_model": "All Done",
+  "task": "Completed",
+  "progress": 100,
+  "logs": [
+    "[12:13:07] All benchmarks completed.",
+    "[12:13:06] Finished Meta-Llama-3.1-8B-Instruct-Q3_K_M: Speed=32.77 t/s, PPL=5.17",
+    "[12:12:40] Processing Meta-Llama-3.1-8B-Instruct-Q3_K_M...",
+    "[12:12:39] Finished Meta-Llama-3.1-8B-Instruct-Q4_K_M: Speed=31.43 t/s, PPL=4.03",
+    "[12:12:12] Processing Meta-Llama-3.1-8B-Instruct-Q4_K_M...",
+    "[12:12:11] Finished Meta-Llama-3.1-8B-Instruct-Q6_K: Speed=22.48 t/s, PPL=4.41",
+    "[12:11:41] Processing Meta-Llama-3.1-8B-Instruct-Q6_K...",
+    "[12:11:40] Finished Meta-Llama-3.1-8B-Instruct-Q8_0: Speed=24.81 t/s, PPL=4.82",
+    "[12:11:10] Processing Meta-Llama-3.1-8B-Instruct-Q8_0...",
+    "[12:11:09] Finished Llama-3.2-3B-Instruct-Q3_K_L: Speed=64.99 t/s, PPL=3.77",
+    "[12:10:48] Processing Llama-3.2-3B-Instruct-Q3_K_L...",
+    "[12:10:47] Finished Llama-3.2-3B-Instruct-Q4_K_M: Speed=69.89 t/s, PPL=6.00",
+    "[12:10:25] Processing Llama-3.2-3B-Instruct-Q4_K_M...",
+    "[12:10:24] Finished Llama-3.2-3B-Instruct-Q6_K: Speed=49.85 t/s, PPL=5.33",
+    "[12:10:02] Processing Llama-3.2-3B-Instruct-Q6_K...",
+    "[12:10:01] Finished Llama-3.2-3B-Instruct-Q8_0: Speed=56.25 t/s, PPL=5.48",
+    "[12:09:39] Processing Llama-3.2-3B-Instruct-Q8_0...",
+    "[12:09:38] Finished Llama-3.2-1B-Instruct-Q3_K_L: Speed=136.72 t/s, PPL=6.28",
+    "[12:09:20] Processing Llama-3.2-1B-Instruct-Q3_K_L...",
+    "[12:09:19] Finished Llama-3.2-1B-Instruct-Q4_K_M: Speed=154.58 t/s, PPL=5.83",
+    "[12:09:01] Processing Llama-3.2-1B-Instruct-Q4_K_M...",
+    "[12:09:00] Finished Llama-3.2-1B-Instruct-Q6_K: Speed=118.51 t/s, PPL=8.72",
+    "[12:08:44] Processing Llama-3.2-1B-Instruct-Q6_K...",
+    "[12:08:43] Finished Llama-3.2-1B-Instruct-Q8_0: Speed=131.27 t/s, PPL=7.33",
+    "[12:08:24] Processing Llama-3.2-1B-Instruct-Q8_0...",
+    "[12:08:24] Loaded wikitext (1793 chars)",
+    "[12:08:16] Starting Simple Benchmark Suite..."
+  ],
+  "results": [
+    {
+      "name": "Llama-3.2-1B-Instruct-Q8_0",
+      "params": "1B",
+      "quant": "Q8_0",
+      "speed": 131.27,
+      "perplexity": 7.33
+    },
+    {
+      "name": "Llama-3.2-1B-Instruct-Q6_K",
+      "params": "1B",
+      "quant": "Q6_K",
+      "speed": 118.51,
+      "perplexity": 8.72
+    },
+    {
+      "name": "Llama-3.2-1B-Instruct-Q4_K_M",
+      "params": "1B",
+      "quant": "Q4_K_M",
+      "speed": 154.58,
+      "perplexity": 5.83
+    },
+    {
+      "name": "Llama-3.2-1B-Instruct-Q3_K_L",
+      "params": "1B",
+      "quant": "Q3_K_L",
+      "speed": 136.72,
+      "perplexity": 6.28
+    },
+    {
+      "name": "Llama-3.2-3B-Instruct-Q8_0",
+      "params": "3B",
+      "quant": "Q8_0",
+      "speed": 56.25,
+      "perplexity": 5.48
+    },
+    {
+      "name": "Llama-3.2-3B-Instruct-Q6_K",
+      "params": "3B",
+      "quant": "Q6_K",
+      "speed": 49.85,
+      "perplexity": 5.33
+    },
+    {
+      "name": "Llama-3.2-3B-Instruct-Q4_K_M",
+      "params": "3B",
+      "quant": "Q4_K_M",
+      "speed": 69.89,
+      "perplexity": 6.0
+    },
+    {
+      "name": "Llama-3.2-3B-Instruct-Q3_K_L",
+      "params": "3B",
+      "quant": "Q3_K_L",
+      "speed": 64.99,
+      "perplexity": 3.77
+    },
+    {
+      "name": "Meta-Llama-3.1-8B-Instruct-Q8_0",
+      "params": "8B",
+      "quant": "Q8_0",
+      "speed": 24.81,
+      "perplexity": 4.82
+    },
+    {
+      "name": "Meta-Llama-3.1-8B-Instruct-Q6_K",
+      "params": "8B",
+      "quant": "Q6_K",
+      "speed": 22.48,
+      "perplexity": 4.41
+    },
+    {
+      "name": "Meta-Llama-3.1-8B-Instruct-Q4_K_M",
+      "params": "8B",
+      "quant": "Q4_K_M",
+      "speed": 31.43,
+      "perplexity": 4.03
+    },
+    {
+      "name": "Meta-Llama-3.1-8B-Instruct-Q3_K_M",
+      "params": "8B",
+      "quant": "Q3_K_M",
+      "speed": 32.77,
+      "perplexity": 5.17
+    }
+  ]
+}

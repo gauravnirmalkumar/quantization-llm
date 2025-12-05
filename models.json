@@ -1,0 +1,86 @@
+[
+  {
+    "group": "A",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q8_0",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-1B-Instruct-GGUF/Llama-3.2-1B-Instruct-Q8_0.gguf"
+  },
+  {
+    "group": "A",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q6_K",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-1B-Instruct-GGUF/Llama-3.2-1B-Instruct-Q6_K.gguf"
+  },
+  {
+    "group": "A",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q4_K_M",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-1B-Instruct-GGUF/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+  },
+  {
+    "group": "A",
+    "family": "Llama 3.2 Instruct",
+    "params": "1B",
+    "quant": "Q3_K_L",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-1B-Instruct-GGUF/Llama-3.2-1B-Instruct-Q3_K_L.gguf"
+  },
+  {
+    "group": "B",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q8_0",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-3B-Instruct-GGUF/Llama-3.2-3B-Instruct-Q8_0.gguf"
+  },
+  {
+    "group": "B",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q6_K",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-3B-Instruct-GGUF/Llama-3.2-3B-Instruct-Q6_K.gguf"
+  },
+  {
+    "group": "B",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q4_K_M",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-3B-Instruct-GGUF/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+  },
+  {
+    "group": "B",
+    "family": "Llama 3.2 Instruct",
+    "params": "3B",
+    "quant": "Q3_K_L",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Llama-3.2-3B-Instruct-GGUF/Llama-3.2-3B-Instruct-Q3_K_L.gguf"
+  },
+  {
+    "group": "C",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q8_0",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf"
+  },
+  {
+    "group": "C",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q6_K",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q6_K.gguf"
+  },
+  {
+    "group": "C",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q4_K_M",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"
+  },
+  {
+    "group": "C",
+    "family": "Llama 3.1 Instruct",
+    "params": "8B",
+    "quant": "Q3_K_M",
+    "path": "/Users/gaurav/Developer/Code/Benchmark/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q3_K_M.gguf"
+  }
+]
