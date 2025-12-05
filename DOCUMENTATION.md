@@ -69,38 +69,38 @@ This diagram shows the detailed quantization process for each model, including t
 ```mermaid
 graph TB
     subgraph "Step 1: Original Models (FP16)"
-        A1["Llama 3.2 1B Instruct<br/>📊 Size: 2.8GB<br/>🔢 Precision: FP16 (16-bit)<br/>⚙️ Params: 1.24B<br/>📁 Format: PyTorch/SafeTensors"]
-        A2["Llama 3.2 3B Instruct<br/>📊 Size: 6.5GB<br/>🔢 Precision: FP16 (16-bit)<br/>⚙️ Params: 3.21B<br/>📁 Format: PyTorch/SafeTensors"]
-        A3["Llama 3.1 8B Instruct<br/>📊 Size: 16GB<br/>🔢 Precision: FP16 (16-bit)<br/>⚙️ Params: 8.03B<br/>📁 Format: PyTorch/SafeTensors"]
+        A1["Llama 3.2 1B Instruct<br/>Size: 2.8GB<br/>Precision: FP16 (16-bit)<br/>Params: 1.24B<br/>Format: PyTorch/SafeTensors"]
+        A2["Llama 3.2 3B Instruct<br/>Size: 6.5GB<br/>Precision: FP16 (16-bit)<br/>Params: 3.21B<br/>Format: PyTorch/SafeTensors"]
+        A3["Llama 3.1 8B Instruct<br/>Size: 16GB<br/>Precision: FP16 (16-bit)<br/>Params: 8.03B<br/>Format: PyTorch/SafeTensors"]
     end
     
     subgraph "Step 2: Convert to GGUF Format"
-        B["llama.cpp convert.py<br/>🔄 Converts PyTorch → GGUF<br/>📝 Preserves model architecture<br/>✅ Maintains FP16 precision"]
+        B["llama.cpp convert.py<br/>Converts PyTorch → GGUF<br/>Preserves model architecture<br/>Maintains FP16 precision"]
     end
     
     subgraph "Step 3: Q8_0 Quantization"
-        C["llama.cpp quantize<br/>--method Q8_0<br/>━━━━━━━━━━━━━━<br/>🎯 8-bit integer quantization<br/>📐 Linear quantization<br/>🔢 Range: -128 to 127<br/>⚡ Block size: 32<br/>📊 Compression: ~50%"]
+        C["llama.cpp quantize<br/>--method Q8_0<br/>━━━━━━━━━━━━━━<br/>8-bit integer quantization<br/>Linear quantization<br/>Range: -128 to 127<br/>Block size: 32<br/>Compression: ~50%"]
         C1["1B-Q8_0<br/>Size: 1.4GB<br/>Quality: 99%"]
         C2["3B-Q8_0<br/>Size: 3.3GB<br/>Quality: 99%"]
         C3["8B-Q8_0<br/>Size: 7.3GB<br/>Quality: 99%"]
     end
     
     subgraph "Step 4: Q6_K Quantization"
-        D["llama.cpp quantize<br/>--method Q6_K<br/>━━━━━━━━━━━━━━<br/>🎯 6-bit K-quant (mixed)<br/>📐 Importance matrix weighting<br/>🔢 6-bit for most layers<br/>⚡ 8-bit for critical layers<br/>📊 Compression: ~62%"]
+        D["llama.cpp quantize<br/>--method Q6_K<br/>━━━━━━━━━━━━━━<br/>6-bit K-quant (mixed)<br/>Importance matrix weighting<br/>6-bit for most layers<br/>8-bit for critical layers<br/>Compression: ~62%"]
         D1["1B-Q6_K<br/>Size: 1.1GB<br/>Quality: 97%"]
         D2["3B-Q6_K<br/>Size: 2.7GB<br/>Quality: 97%"]
         D3["8B-Q6_K<br/>Size: 5.8GB<br/>Quality: 97%"]
     end
     
     subgraph "Step 5: Q4_K_M Quantization"
-        E["llama.cpp quantize<br/>--method Q4_K_M<br/>━━━━━━━━━━━━━━<br/>🎯 4-bit K-quant medium<br/>📐 Adaptive quantization<br/>🔢 4-bit for most weights<br/>⚡ 6-bit for attention layers<br/>📊 Compression: ~75%<br/>✨ Recommended variant"]
+        E["llama.cpp quantize<br/>--method Q4_K_M<br/>━━━━━━━━━━━━━━<br/>4-bit K-quant medium<br/>Adaptive quantization<br/>4-bit for most weights<br/>6-bit for attention layers<br/>Compression: ~75%<br/>Recommended variant"]
         E1["1B-Q4_K_M<br/>Size: 770MB<br/>Quality: 93%"]
         E2["3B-Q4_K_M<br/>Size: 2.1GB<br/>Quality: 93%"]
         E3["8B-Q4_K_M<br/>Size: 4.3GB<br/>Quality: 93%"]
     end
     
     subgraph "Step 6: Q3_K Quantization"
-        F["llama.cpp quantize<br/>--method Q3_K_L/Q3_K_M<br/>━━━━━━━━━━━━━━<br/>🎯 3-bit K-quant<br/>📐 Aggressive quantization<br/>🔢 3-bit for embeddings<br/>⚡ 4-bit for critical paths<br/>📊 Compression: ~81%<br/>⚠️ Quality trade-off"]
+        F["llama.cpp quantize<br/>--method Q3_K_L/Q3_K_M<br/>━━━━━━━━━━━━━━<br/>3-bit K-quant<br/>Aggressive quantization<br/>3-bit for embeddings<br/>4-bit for critical paths<br/>Compression: ~81%<br/>Quality trade-off"]
         F1["1B-Q3_K_L<br/>Size: 700MB<br/>Quality: 88%"]
         F2["3B-Q3_K_L<br/>Size: 1.9GB<br/>Quality: 88%"]
         F3["8B-Q3_K_M<br/>Size: 3.7GB<br/>Quality: 88%"]
@@ -131,7 +131,7 @@ graph TB
     F --> F3
     
     subgraph "Step 7: This Benchmark Project"
-        G["Benchmark Suite<br/>━━━━━━━━━━━━━━<br/>📊 Tests all 12 models<br/>⚡ Speed measurement<br/>🎯 Quality (perplexity)<br/>💾 Memory usage<br/>⏱️ Latency testing<br/>🧪 5 test questions each"]
+        G["Benchmark Suite<br/>━━━━━━━━━━━━━━<br/>Tests all 12 models<br/>Speed measurement<br/>Quality (perplexity)<br/>Memory usage<br/>Latency testing<br/>5 test questions each"]
     end
     
     C1 & C2 & C3 & D1 & D2 & D3 & E1 & E2 & E3 & F1 & F2 & F3 --> G
