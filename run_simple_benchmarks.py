@@ -3,6 +3,7 @@ import time
 import math
 import os
 import sys
+import psutil
 from datasets import load_dataset
 from llama_cpp import Llama
 from benchmark_manager import BenchmarkManager
@@ -11,113 +12,49 @@ def load_models():
     with open("models.json", "r") as f:
         return json.load(f)
 
-def calculate_perplexity(llm, tokens):
-    n_tokens = len(tokens)
-    nll = 0.0
-    count = 0
-    
-    start_time = time.time()
-    
-    # Process in chunks to avoid OOM and allow UI updates
-    chunk_size = 512
-    # Limit total tokens for speed (e.g., 1024 tokens)
-    max_tokens = 1024
-    if n_tokens > max_tokens:
-        tokens = tokens[:max_tokens]
-        n_tokens = max_tokens
-
-    # We need to evaluate token by token or batch to get logits for the NEXT token prediction.
-    # Llama.eval() processes a batch.
-    # For perplexity, we predict token i given 0..i-1.
-    
-    # Simplified approach: Use llm.create_completion to generate and measure speed, 
-    # and use a separate pass for perplexity if possible, or just use generation speed.
-    
-    # Actually, calculating true perplexity in python loop might be too slow/complex for "simple".
-    # Let's do a "Generation Speed" test and a "Perplexity" test using eval().
-    
-    # 1. Speed Test (Generation)
-    # Generate 128 tokens
-    start_gen = time.time()
-    output = llm.create_completion(
-        prompt="The history of science is the study of the development of science",
-        max_tokens=128,
-        echo=False
-    )
-    end_gen = time.time()
-    gen_tokens = output['usage']['completion_tokens']
-    gen_time = end_gen - start_gen
-    speed_tps = gen_tokens / gen_time if gen_time > 0 else 0
-    
-    # 2. Perplexity (Simplified)
-    # We will just evaluate the sequence and assume it runs. 
-    # Calculating exact perplexity requires logits for every token.
-    # llm.eval(tokens) updates the internal state.
-    # llm.logits() gets the logits for the last evaluated token.
-    
-    # Let's try a very rough perplexity:
-    # We can't easily get it without a loop. 
-    # For this "Simple" benchmark, maybe we just report Speed and "Success"?
-    # The user asked for "Perplexity".
-    # Let's try to implement it efficiently.
-    
-    llm.reset()
-    llm.eval(tokens[:1]) # Init
-    
-    nll = 0
-    
-    # This loop is slow in Python. 
-    # Let's limit to 100 tokens for perplexity check.
-    eval_tokens = tokens[:100]
-    
-    start_ppl = time.time()
-    for i in range(len(eval_tokens) - 1):
-        # Context is 0..i
-        # Target is i+1
-        # We already eval-ed 0..i (in previous steps)
-        # Wait, we need to eval one by one.
-        
-        # Current token is tokens[i]
-        # We want probability of tokens[i+1]
-        
-        # Logits for the LAST processed token are available.
-        # So after eval([t0]), we have logits to predict t1.
-        
-        logits = llm.logits()
-        target_token = eval_tokens[i+1]
-        
-        # Softmax and get prob of target
-        # This is getting complicated for "simple".
-        # Let's skip true perplexity and use a proxy or just 0 for now?
-        # No, user wants it.
-        
-        # Alternative: Use llama_cpp's built-in perplexity if available? No.
-        
-        # Let's just run eval on a chunk and report the time it took to process the prompt (Prompt Processing Speed).
-        pass
-        
-        llm.eval([eval_tokens[i+1]])
-        
-    # Okay, let's pivot. 
-    # Metric 1: Prompt Processing Speed (Tokens/sec)
-    # Metric 2: Generation Speed (Tokens/sec)
-    # Metric 3: "Quality" -> We will use the 'logprobs' from create_completion if available?
-    
-    # Let's stick to Speed for now and maybe a dummy Perplexity or a very simple one.
-    # Actually, let's use the 'logprobs' field in create_completion!
-    # If we ask for logprobs, we get them. Average logprob -> Perplexity = exp(-avg_logprob).
-    
-    return speed_tps, 0.0 # Placeholder PPL
+def get_memory_usage():
+    """Get current process memory usage in MB"""
+    process = psutil.Process()
+    return process.memory_info().rss / 1024 / 1024
 
 def main():
     manager = BenchmarkManager()
-    manager.log("Starting Simple Benchmark Suite...")
+    manager.log("Starting Enhanced Benchmark Suite with Multiple Test Questions...")
     
-    # Load Dataset
+    # Multiple test prompts for different capabilities
+    test_prompts = [
+        {
+            "category": "Explanation",
+            "prompt": "Explain quantum computing in simple terms:",
+            "max_tokens": 150
+        },
+        {
+            "category": "Math - Basic",
+            "prompt": "What is 15 * 23? Show your work step by step.",
+            "max_tokens": 100
+        },
+        {
+            "category": "Math - Word Problem",
+            "prompt": "If a train travels 120 km in 2 hours, what is its average speed in km/h?",
+            "max_tokens": 80
+        },
+        {
+            "category": "Coding",
+            "prompt": "Write a Python function to calculate the factorial of a number:",
+            "max_tokens": 120
+        },
+        {
+            "category": "Reasoning",
+            "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
+            "max_tokens": 100
+        }
+    ]
+    
+    # Load Dataset for perplexity
     manager.update_status(task="Loading Dataset...", progress=5)
     try:
         dataset = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
-        text = "\n".join(dataset["text"][:10]) # First 10 lines
+        text = "\n".join(dataset["text"][:10])
         manager.log(f"Loaded wikitext ({len(text)} chars)")
     except Exception as e:
         manager.log(f"Error loading dataset: {e}")
@@ -132,7 +69,11 @@ def main():
         manager.log(f"Processing {model_name}...")
         
         try:
+            # Measure memory before loading
+            mem_before = get_memory_usage()
+            
             # Load Model
+            load_start = time.time()
             llm = Llama(
                 model_path=model['path'],
                 n_gpu_layers=99,
@@ -140,39 +81,66 @@ def main():
                 verbose=False,
                 logits_all=True
             )
+            load_time = time.time() - load_start
+            mem_after = get_memory_usage()
+            model_size_mb = mem_after - mem_before
             
-            # Benchmark: Generation & Quality
-            manager.update_status(task="Benchmarking...", progress=50)
+            manager.log(f"Model loaded in {load_time:.2f}s, using {model_size_mb:.0f}MB")
             
-            # Use create_completion to get speed and logprobs (perplexity proxy)
-            start_time = time.time()
-            output = llm.create_completion(
-                prompt=text[:500], # Use first 500 chars as prompt
+            # Test all prompts and collect responses
+            all_responses = []
+            total_tokens = 0
+            total_time = 0
+            
+            for test_idx, test in enumerate(test_prompts):
+                progress = 20 + (test_idx * 15)
+                manager.update_status(task=f"Testing: {test['category']}...", progress=progress)
+                
+                start_time = time.time()
+                output = llm.create_completion(
+                    prompt=test['prompt'],
+                    max_tokens=test['max_tokens'],
+                    temperature=0.7
+                )
+                elapsed = time.time() - start_time
+                
+                response_text = output['choices'][0]['text']
+                tokens = output['usage']['completion_tokens']
+                
+                total_tokens += tokens
+                total_time += elapsed
+                
+                # Log each Q&A
+                manager.log(f"Q[{test['category']}]: {test['prompt'][:60]}...")
+                manager.log(f"A: {response_text[:100]}...")
+                
+                all_responses.append({
+                    "category": test['category'],
+                    "prompt": test['prompt'],
+                    "response": response_text,
+                    "tokens": tokens,
+                    "time_s": round(elapsed, 2)
+                })
+            
+            # Calculate average speed
+            avg_speed = total_tokens / total_time if total_time > 0 else 0
+            
+            # Test latency (Time to First Token)
+            manager.update_status(task="Measuring Latency...", progress=85)
+            start_ttft = time.time()
+            llm.create_completion(prompt="Hello", max_tokens=1)
+            ttft = time.time() - start_ttft
+            
+            # Test Perplexity
+            manager.update_status(task="Calculating Perplexity...", progress=90)
+            output_with_logprobs = llm.create_completion(
+                prompt=text[:500],
                 max_tokens=128,
                 logprobs=1,
-                echo=True # Echo to get logprobs for prompt too? No, usually just completion.
+                echo=True
             )
             
-            # Calculate Speed (Generation)
-            gen_tokens = output['usage']['completion_tokens']
-            total_time = time.time() - start_time # This includes prompt processing...
-            # Better to separate? 
-            # output['usage'] has prompt_tokens and completion_tokens.
-            # But we don't have separate times.
-            # Let's just use a simple "Tokens per Second" for the whole operation?
-            # Or just generation speed if we can isolate it.
-            
-            # Let's do a pure generation run for speed.
-            start_gen = time.time()
-            llm.create_completion("The capital of France is", max_tokens=100)
-            gen_time = time.time() - start_gen
-            speed = 100 / gen_time
-            
-            # Calculate Perplexity (from logprobs of a completion)
-            # We'll use the logprobs of the generated text as a proxy for model confidence/quality.
-            # Lower perplexity (higher logprob) is better.
-            token_logprobs = output['choices'][0]['logprobs']['token_logprobs']
-            # Filter None (first token might be None)
+            token_logprobs = output_with_logprobs['choices'][0]['logprobs']['token_logprobs']
             valid_logprobs = [lp for lp in token_logprobs if lp is not None]
             if valid_logprobs:
                 avg_logprob = sum(valid_logprobs) / len(valid_logprobs)
@@ -180,22 +148,41 @@ def main():
             else:
                 perplexity = 0.0
             
-            # Save Result
+            # Test Prompt Processing Speed
+            manager.update_status(task="Testing Prompt Processing...", progress=95)
+            long_prompt = text[:1000]
+            pp_start = time.time()
+            llm.create_completion(prompt=long_prompt, max_tokens=1)
+            pp_time = time.time() - pp_start
+            pp_tokens = len(long_prompt.split())
+            pp_speed = pp_tokens / pp_time if pp_time > 0 else 0
+            
+            # Save Result with all metrics and responses
             result = {
                 "name": model_name,
                 "params": model['params'],
                 "quant": model['quant'],
-                "speed": round(speed, 2),
-                "perplexity": round(perplexity, 2)
+                "speed": round(avg_speed, 2),
+                "perplexity": round(perplexity, 2),
+                "latency_ms": round(ttft * 1000, 2),
+                "memory_mb": round(model_size_mb, 0),
+                "load_time_s": round(load_time, 2),
+                "pp_speed": round(pp_speed, 2),
+                "test_responses": all_responses,
+                "sample_prompt": all_responses[0]['prompt'],
+                "sample_response": all_responses[0]['response']
             }
+            
             manager.add_result(result)
-            manager.log(f"Finished {model_name}: Speed={speed:.2f} t/s, PPL={perplexity:.2f}")
+            manager.log(f"✓ {model_name}: Speed={avg_speed:.1f} T/s, PPL={perplexity:.1f}, Latency={ttft*1000:.0f}ms, Mem={model_size_mb:.0f}MB")
             
             # Cleanup
             del llm
             
         except Exception as e:
             manager.log(f"Error benchmarking {model_name}: {e}")
+            import traceback
+            manager.log(f"Traceback: {traceback.format_exc()[:200]}")
         
         # Update Progress
         overall_progress = int(((idx + 1) / total_models) * 100)
@@ -203,7 +190,7 @@ def main():
         time.sleep(1)
 
     manager.update_status(model="All Done", task="Completed", progress=100)
-    manager.log("All benchmarks completed.")
+    manager.log("All benchmarks completed with multiple test questions.")
 
 if __name__ == "__main__":
     main()

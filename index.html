@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -37,6 +37,12 @@
             text-align: center;
             margin-bottom: 30px;
             font-size: 2.5em;
+        }
+
+        h2 {
+            margin-bottom: 16px;
+            color: #333;
+            font-size: 1.3em;
         }
 
         .status-bar {
@@ -58,6 +64,7 @@
         .task-name {
             color: #764ba2;
             font-style: italic;
+            margin-top: 4px;
         }
 
         .progress-outer {
@@ -66,7 +73,6 @@
             background: #e9ecef;
             border-radius: 15px;
             overflow: hidden;
-            position: relative;
         }
 
         .progress-inner {
@@ -80,14 +86,88 @@
             font-weight: bold;
         }
 
+        /* Q&A Display */
+        .qa-container {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .qa-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .qa-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .qa-prompt {
+            font-weight: bold;
+            color: #333;
+            margin: 8px 0;
+        }
+
+        .qa-response {
+            color: #555;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 8px;
+        }
+
+        .qa-meta {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 8px;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 8px 0;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+
         .logs {
             background: #1e1e1e;
             color: #00ff00;
             padding: 16px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
-            max-height: 200px;
+            font-size: 12px;
+            max-height: 250px;
             overflow-y: auto;
         }
 
@@ -98,11 +178,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 13px;
         }
 
         th,
         td {
-            padding: 12px;
+            padding: 10px 8px;
             text-align: left;
             border-bottom: 1px solid #dee2e6;
         }
@@ -111,33 +192,63 @@
             background: #f8f9fa;
             font-weight: 600;
             color: #495057;
+            position: sticky;
+            top: 0;
         }
 
         tr:hover {
             background: #f8f9fa;
         }
 
-        .speed {
+        tr {
+            cursor: pointer;
+        }
+
+        .metric-good {
             color: #28a745;
             font-weight: bold;
         }
 
-        .quality {
-            color: #007bff;
+        .metric-warning {
+            color: #ffc107;
             font-weight: bold;
         }
 
-        .error {
+        .metric-bad {
             color: #dc3545;
-            text-align: center;
+            font-weight: bold;
+        }
+
+        .expandable-row {
+            display: none;
+            background: #f8f9fa;
+        }
+
+        .expandable-row.show {
+            display: table-row;
+        }
+
+        .expandable-content {
             padding: 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>🚀 Real-Time LLM Benchmark</h1>
+        <h1>🚀 Enhanced LLM Benchmark Dashboard</h1>
 
         <div class="card">
             <div class="status-bar">
@@ -154,35 +265,86 @@
             </div>
         </div>
 
-        <div class="card">
-            <h2 style="margin-bottom: 16px;">📋 Live Logs</h2>
-            <div class="logs" id="logsContainer">
-                <div class="log-line">Waiting for data...</div>
+        <div class="grid-2">
+            <div class="card">
+                <h2>💬 Model Responses (All Test Questions)</h2>
+                <div class="qa-container" id="qaContainer">
+                    <div style="text-align: center; color: #999; padding: 40px;">
+                        Waiting for model to start...
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📊 Current Model Metrics</h2>
+                <div class="metrics-grid" id="metricsGrid">
+                    <div class="metric-card">
+                        <div class="metric-label">Speed</div>
+                        <div class="metric-value" id="metricSpeed">--</div>
+                        <div class="metric-label">tokens/sec</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Latency</div>
+                        <div class="metric-value" id="metricLatency">--</div>
+                        <div class="metric-label">ms</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Memory</div>
+                        <div class="metric-value" id="metricMemory">--</div>
+                        <div class="metric-label">MB</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Load Time</div>
+                        <div class="metric-value" id="metricLoadTime">--</div>
+                        <div class="metric-label">seconds</div>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 20px;">📋 Live Logs</h2>
+                <div class="logs" id="logsContainer">
+                    <div class="log-line">Waiting for data...</div>
+                </div>
             </div>
         </div>
 
         <div class="card">
-            <h2 style="margin-bottom: 16px;">📊 Results</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Model</th>
-                        <th>Size</th>
-                        <th>Quantization</th>
-                        <th>Speed (T/s)</th>
-                        <th>Perplexity</th>
-                    </tr>
-                </thead>
-                <tbody id="resultsBody">
-                    <tr>
-                        <td colspan="5" class="error">No results yet...</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>📊 Complete Benchmark Results (Click row to see all Q&A)</h2>
+            <div style="overflow-x: auto;">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Size</th>
+                            <th>Quant</th>
+                            <th>Speed<br>(T/s)</th>
+                            <th>Latency<br>(ms)</th>
+                            <th>Memory<br>(MB)</th>
+                            <th>Load Time<br>(s)</th>
+                            <th>PP Speed<br>(T/s)</th>
+                            <th>Perplexity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <tr>
+                            <td colspan="9" style="text-align: center; padding: 20px;">No results yet...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
+        let lastResult = null;
+        let expandedRows = new Set();
+
+        function toggleRow(modelName) {
+            const expandRow = document.getElementById('expand-' + modelName);
+            if (expandRow) {
+                expandRow.classList.toggle('show');
+            }
+        }
+
         function updateDashboard() {
             fetch('benchmark_status.json?_=' + Date.now())
                 .then(res => res.json())
@@ -197,32 +359,84 @@
                     document.getElementById('progressLabel').textContent = progress + '%';
                     document.getElementById('progressText').textContent = progress + '%';
 
+                    // Update Q&A Display
+                    if (data.results && data.results.length > 0) {
+                        const latestResult = data.results[data.results.length - 1];
+                        // Always update if there are test_responses, don't compare with lastResult
+                        if (latestResult.test_responses && latestResult.test_responses.length > 0) {
+                            const qaContainer = document.getElementById('qaContainer');
+                            qaContainer.innerHTML = latestResult.test_responses.map(qa => `
+                                <div class="qa-item">
+                                    <span class="qa-category">${qa.category}</span>
+                                    <div class="qa-prompt">Q: ${qa.prompt}</div>
+                                    <div class="qa-response">${qa.response}</div>
+                                    <div class="qa-meta">${qa.tokens} tokens in ${qa.time_s}s</div>
+                                </div>
+                            `).join('');
+                            qaContainer.scrollTop = 0;
+
+                            // Update current metrics
+                            document.getElementById('metricSpeed').textContent = latestResult.speed || '--';
+                            document.getElementById('metricLatency').textContent = latestResult.latency_ms || '--';
+                            document.getElementById('metricMemory').textContent = latestResult.memory_mb || '--';
+                            document.getElementById('metricLoadTime').textContent = latestResult.load_time_s || '--';
+
+                            lastResult = latestResult;
+                        }
+                    }
+
                     // Update logs
                     const logsContainer = document.getElementById('logsContainer');
                     if (data.logs && data.logs.length > 0) {
-                        logsContainer.innerHTML = data.logs.map(log =>
+                        logsContainer.innerHTML = data.logs.slice(0, 25).map(log =>
                             `<div class="log-line">${log}</div>`
                         ).join('');
+                        logsContainer.scrollTop = logsContainer.scrollHeight;
                     }
 
-                    // Update results
+                    // Update results table
                     const tbody = document.getElementById('resultsBody');
                     if (data.results && data.results.length > 0) {
-                        tbody.innerHTML = data.results.map(r => `
-                            <tr>
-                                <td>${r.name}</td>
+                        tbody.innerHTML = data.results.map(r => {
+                            const speedClass = r.speed > 100 ? 'metric-good' : r.speed > 50 ? 'metric-warning' : 'metric-bad';
+                            const latencyClass = r.latency_ms < 100 ? 'metric-good' : r.latency_ms < 200 ? 'metric-warning' : 'metric-bad';
+                            const memClass = r.memory_mb < 2000 ? 'metric-good' : r.memory_mb < 4000 ? 'metric-warning' : 'metric-bad';
+
+                            const modelId = r.name.replace(/[^a-zA-Z0-9]/g, '_');
+                            const qaDetails = r.test_responses ? r.test_responses.map(qa => `
+                                <div class="qa-item">
+                                    <span class="qa-category">${qa.category}</span>
+                                    <div class="qa-prompt">Q: ${qa.prompt}</div>
+                                    <div class="qa-response">${qa.response}</div>
+                                    <div class="qa-meta">${qa.tokens} tokens in ${qa.time_s}s</div>
+                                </div>
+                            `).join('') : 'No detailed responses available';
+
+                            return `
+                            <tr onclick="toggleRow('${modelId}')">
+                                <td><strong>${r.name}</strong></td>
                                 <td>${r.params}</td>
                                 <td>${r.quant}</td>
-                                <td class="speed">${r.speed}</td>
-                                <td class="quality">${r.perplexity}</td>
+                                <td class="${speedClass}">${r.speed || 'N/A'}</td>
+                                <td class="${latencyClass}">${r.latency_ms || 'N/A'}</td>
+                                <td class="${memClass}">${r.memory_mb || 'N/A'}</td>
+                                <td>${r.load_time_s || 'N/A'}</td>
+                                <td>${r.pp_speed || 'N/A'}</td>
+                                <td class="metric-good">${r.perplexity || 'N/A'}</td>
                             </tr>
-                        `).join('');
+                            <tr id="expand-${modelId}" class="expandable-row">
+                                <td colspan="9">
+                                    <div class="expandable-content">
+                                        <h3>All Test Responses for ${r.name}</h3>
+                                        ${qaDetails}
+                                    </div>
+                                </td>
+                            </tr>
+                        `}).join('');
                     }
                 })
                 .catch(err => {
                     console.error('Error fetching data:', err);
-                    document.getElementById('modelName').textContent = 'Error loading data';
-                    document.getElementById('taskName').textContent = 'Check console for details';
                 });
         }
 
