@@ -144,7 +144,7 @@
             color: #999;
         }
 
-        /* Live Token Stream */
+        /* Live Token Stream - FIXED SCROLL */
         .token-stream {
             background: #1e1e1e;
             color: #00ff00;
@@ -152,8 +152,7 @@
             border-radius: 12px;
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            min-height: 200px;
-            max-height: 300px;
+            height: 300px;
             overflow-y: auto;
             line-height: 1.8;
             position: relative;
@@ -161,12 +160,16 @@
 
         .token-stream::before {
             content: '▶ LIVE TOKEN STREAM';
-            position: absolute;
-            top: 10px;
-            right: 20px;
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1e1e1e;
+            padding: 5px 0;
             font-size: 0.8em;
             color: #ff6b6b;
             animation: blink 1.5s infinite;
+            z-index: 10;
         }
 
         @keyframes blink {
@@ -183,24 +186,9 @@
             }
         }
 
-        .token {
-            display: inline;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Q&A Display */
+        /* Q&A Display - FIXED SCROLL */
         .qa-container {
-            max-height: 500px;
+            height: 500px;
             overflow-y: auto;
         }
 
@@ -247,7 +235,26 @@
             font-style: italic;
         }
 
-        /* Results Table */
+        .qa-verification {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .verification-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .verification-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Results Table - FIXED EXPAND */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -272,11 +279,11 @@
             letter-spacing: 0.5px;
         }
 
-        tr:hover {
+        tbody tr:hover {
             background: #f8f9fa;
         }
 
-        tr {
+        tbody tr {
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -298,7 +305,6 @@
 
         .expandable-row {
             display: none;
-            background: #f8f9fa;
         }
 
         .expandable-row.show {
@@ -307,6 +313,7 @@
 
         .expandable-content {
             padding: 30px;
+            background: #f8f9fa;
         }
 
         h2 {
@@ -354,7 +361,7 @@
     <div class="container">
         <header>
             <h1>🚀 LLM Quantization Benchmark</h1>
-            <p class="subtitle">Real-time Performance Testing of 12 Quantized Models</p>
+            <p class="subtitle">Real-time Performance Testing with Answer Verification</p>
         </header>
 
         <!-- Current Model Status -->
@@ -455,33 +462,72 @@
     <script>
         let lastResult = null;
         let expandedRows = new Set();
-        let lastLogCount = 0;
+        let lastResultsHash = '';
+        let qaScrollPosition = 0;
+        let tokenScrollPosition = 0;
 
-        function toggleRow(modelName) {
-            const expandRow = document.getElementById('expand-' + modelName);
+        function verifyAnswer(category, response) {
+            // Simple verification logic for different question types
+            const checks = {
+                'Math - Basic': {
+                    expected: '345',
+                    check: (r) => r.includes('345') || r.includes('three hundred forty-five'),
+                    message: '15 × 23 = 345'
+                },
+                'Math - Word Problem': {
+                    expected: '60 km/h',
+                    check: (r) => r.includes('60') && (r.includes('km/h') || r.includes('kilometers per hour')),
+                    message: 'Speed = 120km / 2h = 60 km/h'
+                },
+                'Coding': {
+                    expected: 'def factorial',
+                    check: (r) => r.includes('def ') || r.includes('function') || r.includes('factorial'),
+                    message: 'Should contain function definition'
+                }
+            };
+
+            if (checks[category]) {
+                const passed = checks[category].check(response);
+                return {
+                    passed,
+                    message: passed ? `✓ Correct: ${checks[category].message}` : `✗ Expected: ${checks[category].message}`
+                };
+            }
+            return null;
+        }
+
+        function toggleRow(modelId) {
+            const expandRow = document.getElementById('expand-' + modelId);
             if (expandRow) {
-                expandRow.classList.toggle('show');
+                const isExpanded = expandRow.classList.contains('show');
+                if (isExpanded) {
+                    expandRow.classList.remove('show');
+                    expandedRows.delete(modelId);
+                } else {
+                    expandRow.classList.add('show');
+                    expandedRows.add(modelId);
+                }
             }
         }
 
         function updateTokenStream(logs) {
-            // Show streaming tokens and prompts in real-time
             const tokenStream = document.getElementById('tokenStream');
 
-            // Filter for relevant streaming logs
+            // Save scroll position
+            const isScrolledToBottom = tokenStream.scrollHeight - tokenStream.clientHeight <= tokenStream.scrollTop + 1;
+
             const streamLogs = logs.filter(log =>
                 log.includes('STREAM:') ||
                 log.includes('Q[') ||
                 log.includes('Generating:') ||
                 log.includes('Testing:')
-            ).slice(-15); // Show last 15 entries
+            ).slice(-15);
 
             if (streamLogs.length > 0) {
                 let html = '';
 
                 for (const log of streamLogs) {
                     if (log.includes('Q[')) {
-                        // Prompt display
                         const match = log.match(/Q\[(.*?)\]: (.*)/);
                         if (match) {
                             html += `<div style="color: #ffa500; font-weight: bold; margin: 12px 0 4px 0; border-top: 1px solid #444; padding-top: 8px;">
@@ -489,13 +535,11 @@
                             </div>`;
                         }
                     } else if (log.includes('STREAM:')) {
-                        // Streaming tokens
                         const text = log.replace(/.*STREAM:\s*/, '');
                         html += `<div style="color: #00ff00; margin: 2px 0; padding-left: 10px; line-height: 1.6;">
                             ${text}
                         </div>`;
                     } else if (log.includes('Generating:')) {
-                        // Status update
                         const match = log.match(/Generating: (.*?) \((\d+) tokens\)/);
                         if (match) {
                             html += `<div style="color: #00bfff; font-size: 0.9em; margin: 4px 0;">
@@ -506,7 +550,11 @@
                 }
 
                 tokenStream.innerHTML = html || '<div style="text-align: center; color: #666; padding: 60px 20px;">Waiting for generation...</div>';
-                tokenStream.scrollTop = tokenStream.scrollHeight;
+
+                // Only auto-scroll if user was at bottom
+                if (isScrolledToBottom) {
+                    tokenStream.scrollTop = tokenStream.scrollHeight;
+                }
             }
         }
 
@@ -529,20 +577,32 @@
                         updateTokenStream(data.logs);
                     }
 
-                    // Update Q&A Display
+                    // Update Q&A Display - PRESERVE SCROLL
                     if (data.results && data.results.length > 0) {
                         const latestResult = data.results[data.results.length - 1];
                         if (latestResult.test_responses && latestResult.test_responses.length > 0) {
                             const qaContainer = document.getElementById('qaContainer');
-                            qaContainer.innerHTML = latestResult.test_responses.map(qa => `
+                            const currentScroll = qaContainer.scrollTop;
+
+                            qaContainer.innerHTML = latestResult.test_responses.map(qa => {
+                                const verification = verifyAnswer(qa.category, qa.response);
+                                const verificationHtml = verification ?
+                                    `<div class="qa-verification ${verification.passed ? 'verification-pass' : 'verification-fail'}">
+                                        ${verification.message}
+                                    </div>` : '';
+
+                                return `
                                 <div class="qa-item">
                                     <span class="qa-category">${qa.category}</span>
                                     <div class="qa-prompt">Q: ${qa.prompt}</div>
                                     <div class="qa-response">${qa.response}</div>
                                     <div class="qa-meta">Generated ${qa.tokens} tokens in ${qa.time_s}s</div>
+                                    ${verificationHtml}
                                 </div>
-                            `).join('');
-                            qaContainer.scrollTop = 0;
+                            `}).join('');
+
+                            // Restore scroll position
+                            qaContainer.scrollTop = currentScroll;
 
                             // Update current metrics
                             document.getElementById('metricSpeed').textContent = latestResult.speed || '--';
@@ -554,45 +614,61 @@
                         }
                     }
 
-                    // Update results table
+                    // Update results table - ONLY IF CHANGED
                     const tbody = document.getElementById('resultsBody');
                     if (data.results && data.results.length > 0) {
-                        tbody.innerHTML = data.results.map(r => {
-                            const speedClass = r.speed > 100 ? 'metric-good' : r.speed > 50 ? 'metric-warning' : 'metric-bad';
-                            const latencyClass = r.latency_ms < 100 ? 'metric-good' : r.latency_ms < 200 ? 'metric-warning' : 'metric-bad';
-                            const memClass = r.memory_mb < 2000 ? 'metric-good' : r.memory_mb < 4000 ? 'metric-warning' : 'metric-bad';
+                        const newHash = JSON.stringify(data.results.map(r => r.name));
 
-                            const modelId = r.name.replace(/[^a-zA-Z0-9]/g, '_');
-                            const qaDetails = r.test_responses ? r.test_responses.map(qa => `
-                                <div class="qa-item">
-                                    <span class="qa-category">${qa.category}</span>
-                                    <div class="qa-prompt">Q: ${qa.prompt}</div>
-                                    <div class="qa-response">${qa.response}</div>
-                                    <div class="qa-meta">Generated ${qa.tokens} tokens in ${qa.time_s}s</div>
-                                </div>
-                            `).join('') : 'No detailed responses available';
+                        if (newHash !== lastResultsHash) {
+                            lastResultsHash = newHash;
 
-                            return `
-                            <tr onclick="toggleRow('${modelId}')">
-                                <td><strong>${r.name}</strong></td>
-                                <td>${r.params}</td>
-                                <td>${r.quant}</td>
-                                <td class="${speedClass}">${r.speed || 'N/A'}</td>
-                                <td class="${latencyClass}">${r.latency_ms || 'N/A'}</td>
-                                <td class="${memClass}">${r.memory_mb || 'N/A'}</td>
-                                <td>${r.load_time_s || 'N/A'}</td>
-                                <td>${r.pp_speed || 'N/A'}</td>
-                                <td class="metric-good">${r.perplexity || 'N/A'}</td>
-                            </tr>
-                            <tr id="expand-${modelId}" class="expandable-row">
-                                <td colspan="9">
-                                    <div class="expandable-content">
-                                        <h3>All Test Responses for ${r.name}</h3>
-                                        ${qaDetails}
+                            tbody.innerHTML = data.results.map(r => {
+                                const speedClass = r.speed > 100 ? 'metric-good' : r.speed > 50 ? 'metric-warning' : 'metric-bad';
+                                const latencyClass = r.latency_ms < 100 ? 'metric-good' : r.latency_ms < 200 ? 'metric-warning' : 'metric-bad';
+                                const memClass = r.memory_mb < 2000 ? 'metric-good' : r.memory_mb < 4000 ? 'metric-warning' : 'metric-bad';
+
+                                const modelId = r.name.replace(/[^a-zA-Z0-9]/g, '_');
+                                const qaDetails = r.test_responses ? r.test_responses.map(qa => {
+                                    const verification = verifyAnswer(qa.category, qa.response);
+                                    const verificationHtml = verification ?
+                                        `<div class="qa-verification ${verification.passed ? 'verification-pass' : 'verification-fail'}">
+                                            ${verification.message}
+                                        </div>` : '';
+
+                                    return `
+                                    <div class="qa-item">
+                                        <span class="qa-category">${qa.category}</span>
+                                        <div class="qa-prompt">Q: ${qa.prompt}</div>
+                                        <div class="qa-response">${qa.response}</div>
+                                        <div class="qa-meta">Generated ${qa.tokens} tokens in ${qa.time_s}s</div>
+                                        ${verificationHtml}
                                     </div>
-                                </td>
-                            </tr>
-                        `}).join('');
+                                `}).join('') : 'No detailed responses available';
+
+                                const isExpanded = expandedRows.has(modelId);
+
+                                return `
+                                <tr onclick="toggleRow('${modelId}')">
+                                    <td><strong>${r.name}</strong></td>
+                                    <td>${r.params}</td>
+                                    <td>${r.quant}</td>
+                                    <td class="${speedClass}">${r.speed || 'N/A'}</td>
+                                    <td class="${latencyClass}">${r.latency_ms || 'N/A'}</td>
+                                    <td class="${memClass}">${r.memory_mb || 'N/A'}</td>
+                                    <td>${r.load_time_s || 'N/A'}</td>
+                                    <td>${r.pp_speed || 'N/A'}</td>
+                                    <td class="metric-good">${r.perplexity || 'N/A'}</td>
+                                </tr>
+                                <tr id="expand-${modelId}" class="expandable-row ${isExpanded ? 'show' : ''}">
+                                    <td colspan="9">
+                                        <div class="expandable-content">
+                                            <h3>All Test Responses for ${r.name}</h3>
+                                            ${qaDetails}
+                                        </div>
+                                    </td>
+                                </tr>
+                            `}).join('');
+                        }
                     }
                 })
                 .catch(err => {
